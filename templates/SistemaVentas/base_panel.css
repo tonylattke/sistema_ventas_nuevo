@@ -1,0 +1,69 @@
+#panel_izquierdo_wrapper {
+    margin: 5px 0 5px 0;
+    float:left;
+    width: 250px;
+    min-height:440px;
+    padding-top: 5px;
+    background-color: #202020;
+    
+    -moz-border-radius:    12px;
+    -webkit-border-radius: 12px;
+    border-radius:         12px;
+}
+
+#panel_izquierdo {
+    width: 100%;
+    height:100%;
+    margin:12px 0 12px 0;
+}
+
+#panel_izquierdo div.boton_subvista {
+    margin: 0 0 8px 0;
+    clear: both;
+    width: 100%;
+    height:25px;
+    padding-top: 7px;
+    color: white;
+    background-color: #101010;
+    
+    cursor: pointer;
+    
+    font-size:   18px;
+    font-weight: bold;
+}
+
+#panel_izquierdo div.boton_subvista:hover{
+    background-color : #96974b;
+	color:black;
+}
+
+
+#panel_izquierdo div.subvista {
+    margin: 0 0 15px 0;
+    clear: both;
+    width: 100%;
+    height:35px;
+    padding-top: 4px;
+    background-color: #808080;
+    color: black;
+    
+    font-size:   24px;
+    font-weight: bold;
+}
+
+
+
+#panel_izquierdo div.subpanel {
+    margin: 0 0 15px 0;
+    clear: both;
+    width: 100%;
+    min-height: 25px;
+    padding: 7px 0 7px 0;
+    color: white;
+    background-color: black;
+}
+
+#panel_izquierdo div.subpanel .titulo {
+    font-size: 18px;
+    font-weight: bolder;
+}

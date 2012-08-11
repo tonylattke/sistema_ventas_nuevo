@@ -1,0 +1,297 @@
+{% extends "SistemaVentas/base_panel.html" %}
+
+
+{% block css %}
+    <link href="/templates/SistemaVentas/vista_movimientos.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        var contexto = "{% csrf_token %}";
+        $import("/templates/SistemaVentas/vista_movimientos.js");
+    </script>
+{% endblock javascript %}
+
+
+{% block menu %}
+<ul>
+    <li><a href="vender">Ventas</a></li>
+    <li class="current_page_item"><a>Movimientos</a></li>
+    <li><a href="inventario">Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+	<li><a href="caja">Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+{% block parametros_body %}onload="$('motivo').focus()"{% endblock %}  
+
+{% block panel %}
+
+<div class="subvista"> Ventas del Día   </div>
+
+<div class="subpanel" id="div_nuevo_movimiento"
+     title='Area para definir el lapso del tiempo en el que se muestran los movimientos.
+Uso:
+- Indicar una fecha inicial y una fecha final.
+- Presionar el boton "Mostrar" para actualizar las tablas'>
+    <label class="titulo">Mostrando: </label>
+    <form method="get" name="mostrando" id="mostrando" action= "movimientos">
+        <table>
+            <tr>
+                <td>De:</td>
+                <td>
+                    <input type="text" name="fi" id="fi" size="8" value="{{ fecha_inical|date:'Y/m/d' }}"/>
+                    <input type="text" name="hi" id="hi" size="4" value="{{ fecha_inical|date:'H:i' }}"/>
+                    <label class="fecha_btn"
+                           onclick="hoy_a(0)"
+                           >hoy</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Hasta:</td>
+                <td>
+                    <input type="text" name="ff" id="ff" size="8" value="{{ fecha_final|date:'Y/m/d' }}"/>
+                    <input type="text" name="hf" id="hf" size="4" value="{{ fecha_final|date:'H:i' }}"/>
+                    <label class="fecha_btn"
+                           onclick="hoy_a(1)"
+                           >hoy</label>
+                </td>
+            </tr>
+        </table>
+        <div class="boton_amarillo"
+             title='Al hacer click aquí se generara un movimiento de caja en el sistema.'
+             onclick="mostrar()">
+            <label>Mostrar</label>
+        </div>
+    </form>
+</div>
+    
+<div class="subpanel" id="div_nuevo_movimiento"
+     title='Area para agregar un nuevo movimiento de caja al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este movimiento.'>
+
+    <label class="titulo">Hacer Movimiento de Caja </label>
+    <form method="post" id="formulario" action='nuevo_movimiento_do'>
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td> <label>Motivo:</label> </td>
+            </tr>
+            <tr>
+                <td> <textarea id="motivo" name="motivo" rows="3" cols="27" name="motivo"></textarea> </td>
+            </tr>
+            <tr> <td>
+                <table>
+                    <tr>
+                        <td> <label>Tipo:</label> </td>
+                        <td>
+                            <select id="tipo" name="tipo">
+                                <option value="I">Ingreso</option>
+                                <option value="Z">Egreso</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Cantidad:</label> </td>
+                        <td><input type="text" id="cantidad" name="cantidad" size="7"/><label>Bsf.</label> </td>
+                    </tr>
+                </table>
+            </td> </tr>
+        </table>
+
+    	{% if apertura_caja == 'si' %}
+		    <div class="boton_amarillo"
+			     title='Al hacer click aquí se generara un movimiento de caja en el sistema.'
+			     onclick="agregar()">
+			    <label>Realizar</label>
+		    </div>
+    	{% else %}
+		    <div class="boton_amarillo"
+			     title='Al hacer click aquí se generara un movimiento de caja en el sistema.'
+			     onclick="alert('Debes abrir caja para poder comenzar a realizar movimientos en el sistema')">
+			    <label>Realizar</label>
+		    </div>
+	    {% endif %}
+
+    </form>
+</div>
+
+{% endblock panel %}
+
+
+{% block contenido_derecho %}
+
+<div id="area_listado"
+     title='Estos son los últimos movimientos de caja del sistema de ventas almacenados actualmente.'>
+    <div id="area_ventas_dia">
+        <label class="titulos_listado">Ventas del día</label>
+        <div id="listado_ventas_dia">
+			<ul class="acc" id="acc">
+            {%for f in facturas%}
+
+				<li>
+					<h3>  Factura N: {{f.id}} --- Cliente:{{f.usuario.nombre}} --- Hora: {{f.fecha|date:"H:i"}}</h3>
+					<div class="acc-section">
+						<div class="acc-content">
+							<table>
+								<tr>
+									<td class="columna_nombre">
+										<label>
+										    Nombre
+										</label>
+									</td>
+									<td class="columna">
+										<label>
+										    Cantidad
+										</label>
+									</td>
+									<td class="columna">
+										<label>
+										    Valor
+										</label>
+									</td>
+								    <td class="columna">
+								        <label>
+								            Operación
+								        </label>
+								    </td>   
+								</tr>
+
+								{%for p in movimientosVentas%}
+									{%if p.factura.id == f.id%}
+									<tr class="{% cycle 'fondo_blanco' 'fondo_negro' %}">
+									    <td>
+									        <label>
+									            {{p.producto.nombre}}
+									        </label>
+									    </td>
+									    <td>
+									        <label>
+									            {{p.cantidad}}
+									        </label>
+									    </td>
+									    <td>
+									        <label>
+									            {{p.precio.valor}}
+									        </label>
+									    </td>
+								        <td>
+											<div class = "boton_amarillo"
+												 title='Aquí podras eliminar este movimiento del sistema.'>
+												<label>
+													X
+												</label>
+											</div>
+								        </td>
+									</tr>
+									{%endif%}
+								{%endfor%}
+							</table>
+						</div>
+					</div>
+				</li>
+
+            {%endfor%}
+			</ul>
+        </div>
+    </div>
+    <div id="area_movimientos_dia">
+        <label class="titulos_listado">Movimientos del día</label>
+        <div id="listado_movimientos_dia">
+            <table>
+                <tr>
+                    <td class="columna">
+                        <label>
+                            Hora
+                        </label>
+                    </td>
+                    <td class="columna_descripcion">
+                        <label>
+                            Descripcición
+                        </label>
+                    </td>
+                    <td class="columna">
+                        <label>
+                            Tipo
+                        </label>
+                    </td>
+                    <td class="columna">
+                        <label>
+                            Valor
+                        </label>
+                    </td>
+                    <td class="columna">
+                        <label>
+                            Operación
+                        </label>
+                    </td>   
+                </tr>
+                {%for p in movimientosCaja%}
+                    <tr class="{% cycle 'fondo_blanco' 'fondo_negro' %}">
+                        <td>
+                            <label>
+                                {{p.fecha|date:"H:i"}}
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                {{p.descripcion}}
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                {% if p.tipo == "I" %}
+                                    Ingreso
+                                {% else %}{% if p.tipo == "Z" %}
+                                    Retiro
+                                {% else %}{% if p.tipo == "P" %}
+                                    Ajuste Positivo
+                                {% else %}{% if p.tipo == "N" %}
+                                    Ajuste Negativo
+                                {% endif %} {% endif %}{% endif %} {% endif %}
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                {{p.cantidad}}
+                            </label>
+                        </td>
+                        <td>
+							<div class = "boton_amarillo"
+								 title='Aquí podras eliminar este movimiento del sistema.'>
+								<label>
+									X
+								</label>
+							</div>
+                        </td>
+                    </tr>        
+                {%endfor%}    
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/templates/SistemaVentas/scriptAcordeon.js"></script>
+
+<script type="text/javascript">
+
+var parentAccordion=new TINY.accordion.slider("parentAccordion");
+parentAccordion.init("acc","h3",0,0);
+
+</script>
+
+<div id="area_boton_ayuda">
+    <div class = "boton_accion"
+         title='Aquí podras accesar al menu de ayuda de movimientos de caja, usalo si tienes alguna duda de esta sección del sistema.'
+		 onclick="ayuda('movimientos/ayuda','movimientos')">
+        <label>
+            Ayuda
+        </label>
+    </div>
+</div>
+
+{% endblock contenido_derecho %}
+

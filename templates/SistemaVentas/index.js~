@@ -1,0 +1,7 @@
+function anadir_a_carrito(nombre_producto) {
+    alert(nombre_producto);
+    var lista = document.getElementById("carrito");
+    var producto = document.createElement("LI");
+    producto.innerHTML = nombre_producto;
+    lista.appendChild(producto);
+}

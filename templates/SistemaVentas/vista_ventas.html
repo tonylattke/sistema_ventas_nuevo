@@ -1,0 +1,235 @@
+{% extends "SistemaVentas/base.html" %}
+
+
+{% block css %}
+    <link href="/templates/SistemaVentas/vista_ventas.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $import("/templates/SistemaVentas/vista_ventas.js");
+
+        function main() {
+            Global.compra  = new Compra();
+            Global.compra.observar(Global.compra.CAMBIO_PRODUCTOS, carrito_cambio);
+            
+            Global.carrito = new Carrito(Global.compra, Global, {'class': 'ListaProductosVertical', 'border' : 0});
+            $("contenedor_compras").appendChild(Global.carrito.element);
+
+            //{% if cinco_productos %}
+            //    {% for producto in cinco_productos %}
+            Global.lista_productos["{{ producto.nombre }}"] = new Producto( "{{ producto.nombre }}", +"{{ producto.precio_str }}", +"{{ producto.cantidad }}", "{{ producto.imagen.url }}" );
+            //    {% endfor %}
+            //{% endif %}
+            
+            Global.lista_clientes["0"] = new Cliente("Clientes", "0", "", 0);
+
+            Global.context = "{% csrf_token %}";
+            
+            $("prod_buscados").style.display = 'none';
+            $("buscar_txt").focus();
+        };
+
+    </script>
+{% endblock javascript %}
+
+
+{% block parametros_body %} onload="main()" onkeyup="captura_de_tecla_global(event);" {% endblock %}
+
+{% block menu %}
+<ul>
+    <li class="current_page_item"><a>Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li><a href="inventario">Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+	<li><a href="caja">Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+{% block contenido %}
+
+<!--
+            <div class="usuario"
+                 title='Este es tu usuario, si no eres "{{ usuario.get_full_name|default:usuario.username }}" presiona el boton "Salir" que esta arriba e ingresa con tu usuario.'>
+                <label> Cajero Actual:  </label><label class="nombre">{{ usuario.get_full_name|default:usuario.username }}</label>
+            </div>
+-->
+
+    <div id="top_ventas">    
+        <div class ="MasVendidos" title="Productos más vendidos">
+        {% if cinco_productos %}
+            <div class = "ListaProductosHorizontal">
+              {% for producto in cinco_productos %}
+                   <div id="produ_mas_vend_{{ forloop.counter }}" class ="Producto" onclick = "anadir('{{ producto.nombre }}')">
+                       {{ producto.imagen_tag|safe }}<br/> <!-- El <br> debe ser quitado en pro del css -->
+                       <label> {{ producto.nombre|slice:":12" }} </label> <br/>
+                       <label> {{ producto.precio_str|floatformat }} Bsf. </label>
+                   </div>
+              {% endfor %}
+            </div>
+        {% else %}
+            <p> No hay productos para mostrar </p>
+        {% endif %}
+        </div>
+    </div>
+    
+    
+    <div id="area_busqueda">
+	    <div class ="BuscarProductos" 
+		 title='Area para buscar un producto por su nombre.
+Uso:
+- "Alt + P" para enfocar el campo de texto.
+- Escribe parte del nombre del producto.
+- Si presionas "Enter" el producto con el marco amarillo sera agregado a la lista de compra.
+- Puedes hacer click en algun producto para agregarlo.'>
+		<label class="titulo">Buscar Productos:</label>
+		<input id="buscar_txt" type="text" class ="buscar_producto" name="busca"
+		       autocomplete="off" onkeyup="buscar(event,'buscar_txt', 'prod_buscados')" />
+		<div id ="prod_buscados" class = "ListaProductosVertical"  >-</div>
+	    </div>
+    </div>
+
+
+
+    
+    <div id="area_venta">
+        <div class = "Compras" id ="contenedor_compras" 
+             title ='Esta lista contiene los productos de la venta actual.
+Uso:
+- Se agrega algun producto desde la lista de productos mas buscados o desde el area de busqueda de productos.
+- Cada linea indica el producto a vender, la cantidad de unidades y el precio unitario.
+- Se puede borrar un producto haciendo click en el boton de borrar.
+- Se puede cambiar la cantidad de productos a vender cambiando el numero en el campo de texto.'>
+        </div>
+    </div>
+
+    
+    
+    <div id="area_cliente">
+
+        <div class="Clientes" 
+             title ='Area de informacion del cliente y de pago.
+Uso:
+- Con "Alt + C" enfoncas el campo de texto.
+- Introduces parte de la cedula de identidad de un cliente.
+- Si se encuentra el cliente apareceran sus datos.
+- Si el cliente no se puede encontrar aparecera un campo para introducir un nuevo cliente al sistema.
+- Para más informacion sobre las otras secciones mueve el mouse hacia abajo hasta el area que deseas conocer.'>
+            <label class="titulo">Cliente:</label><br/>
+            <label>Cedula o Nombre</label>
+            <input type="text" id="cedula_txt" size="9"
+                   onkeyup = "buscar_clientes(event, 'cedula_txt', 'div_cedula_ok', 'div_nuevo_cliente');" />
+
+            <div id ="div_cedula_ok"
+                 title="Esta es la informacion del cliente a nombre de quien se hara la venta.
+                 
+    Si no es el Cliente que buscas intenta introducir su cedula correctamente.
+    Si aun asi no lo encunetras es posible que no este en el sistema, introduce una cedula falsa y aparecerá el campo para agregar un nuevo usuario.">
+            </div>
+
+            <div id="div_nuevo_cliente" class="nuevo_cliente"
+                 title='Area para agregar un nuevo cliente, una vez hagas la venta este cliente será introducido al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara la venta.'>
+                <label><b> Crear nuevo Cliente: </b></label>
+                <table border = "0">
+                    <tr>
+                        <td> <label>Nombre:</label> </td>
+                        <td> <input type="text" id="nuevo_cliente_Nombre" /> </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Cedula:</label> </td>
+                        <td>
+                            <input type="text" id="nuevo_cliente_Cedula" size="15" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Carnet:</label> </td>
+                        <td> <input type="text" id="nuevo_cliente_Carnet" size="15" /> </td>
+                    </tr>
+                </table>
+            </div>
+            
+        
+
+            <div class="configuracion_pago" 
+                 title='Aquí se configura como se hace el pago.
+Si el cliente da más dinero de lo que cuestan sus productos este puede elegir "Recargar" su saldo con el dinero restante o dar ese dinero para donacion.
+Si da menos dinero entonces se le deducirá del saldo, si el usuario no tiene saldo suficiente el monto aparecerá en negativo y la venta no podra ser efectuada.'>
+                <label class="titulo">Configuración de Pago:</label><br/>
+                <table border="0">
+                    <tr>
+                        <td> <label>Uso de efectivo:</label> </td>
+                        <td> <input id="efectivo_txt" type="text" size="5" value="0" onkeyup ="cambio_conf_pago_setted()" /><label>Bsf.</label> </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Paga con saldo:</label> </td>
+                        <td> <label id="saldo_lbl">0</label><label> Bsf.</label> </td>
+                    </tr>
+                    <tr>
+                        <td> <input id="recarga_rbt" type="radio" name="pago" value="Recarga" checked="True"  onchange="cambio_conf_pago_setted()"/> <label>Recarga:</label> </td>
+                        <td> <label id="recarga_lbl" >0</label><label> Bsf.</label> </td>
+                    </tr>
+                    <tr>
+                        <td> <input id="donacion_rbt" type="radio" name="pago" value="Donacion" onchange="cambio_conf_pago_setted()" />  <label>Donación:</label> </td>
+                        <td> <label id="donacion_lbl" >0</label><label> Bsf</label> </td>
+                    </tr>
+                </table>
+            </div>
+            
+
+        </div>
+
+
+    </div>
+
+    <div id="area_botones_bottom">
+
+        <div id="area_boton_vender">
+            <div id="resumen_compra" 
+                 title='Resumen de la compra:
+Uso:
+- Aquí se indica el precio total de la venta.
+- Si se presiona el boton "Vender" se efectua la venta.
+- Si se presiona "Alt + Enter" se efectua la venta.'>
+
+    	{% if apertura_caja == 'si' %}
+                <div id="boton_vender"
+					 onclick="comprar()"
+					 class="boton_accion">
+					<label>
+					    Vender
+					</label>               
+                </div>
+    	{% else %}
+                <div id="boton_vender"
+					 onclick="alert('Debes abrir caja para poder comenzar a vender')"
+					 class="boton_accion">
+					<label>
+					    Vender
+					</label>               
+                </div>
+	    {% endif %}
+                
+                <div class="resumen_resumen">
+                    <label>Total: </label>
+                    <label id="resumen_total">0</label>
+                    <label>Bsf. </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="area_boton_ayuda">
+            <div class = "boton_accion"
+                 title='Aquí podras accesar al menu de ayuda de inventario, usalo si tienes alguna duda de esta sección del sistema.'
+				 onclick="ayuda('ventas/ayuda','ventas')">
+                <label>
+                    Ayuda
+                </label>
+            </div>
+        </div>
+    </div>        
+{% endblock contenido %}
+

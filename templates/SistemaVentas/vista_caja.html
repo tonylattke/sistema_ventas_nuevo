@@ -1,0 +1,137 @@
+{% extends "SistemaVentas/base_panel.html" %}
+
+
+{% block css %}
+    <link href="/templates/SistemaVentas/vista_caja.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $import("/templates/SistemaVentas/vista_caja.js");
+    </script>
+{% endblock javascript %}
+
+{% block menu %}
+<ul>
+    <li><a href="vender">Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li><a href="inventario">Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+    <li class="current_page_item"><a>Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+{% block parametros_body %}onload="$('fi').focus()"{% endblock %}  
+
+{% block panel %}
+
+<div class="subvista"
+     title='Aquí podras revisar el estado monetario de caja y los registros del sistema.'>
+        <label>Operaciones</label>
+</div>
+
+<div class="boton_subvista"
+     title='Aquí podras consultar el estado de la caja.'
+     onclick="javascript:window.location='caja'">
+    <label>Consultar Caja</label>
+</div>
+
+<div class="boton_subvista"
+     title='Aquí podras abrir caja.'
+     onclick="javascript:window.location='caja/abrir'">
+    <label>Realizar apertura de Caja</label>
+</div>
+
+<div class="boton_subvista"
+     title='Aquí podras realizar el cierre de caja.'
+     onclick="javascript:window.location='caja/cerrar'">
+    <label>Realizar cierre de Caja</label>
+</div>
+    
+{% endblock panel %}
+
+
+{% block contenido_derecho %}
+
+<div id="area_sobrante">
+    
+    <div class="barra_horizontal"
+         title='Area para definir el lapso del tiempo en el que se muestran los movimientos.
+    Uso:
+    - Indicar una fecha inicial y una fecha final.
+    - Presionar el boton "Mostrar" para actualizar las tablas'>
+        <form method="get" name="mostrando" id="mostrando" action= "caja">
+            <label>Reporte de:</label>
+            <input type="text" name="fi" id="fi" size="8" value="{{ fecha_inical|date:'Y/m/d' }}"/>
+            <input type="text" name="hi" id="hi" size="4" value="{{ fecha_inical|date:'H:i' }}"/>
+            <label>Hasta:</label>
+            <input type="text" name="ff" id="ff" size="8" value="{{ fecha_final|date:'Y/m/d' }}"/>
+            <input type="text" name="hf" id="hf" size="4" value="{{ fecha_final|date:'H:i' }}"/>
+            <label class="fecha_btn" onclick="hoy()">hoy</label>
+            <div class="boton_amarillo"
+                 title='Al hacer click aquí se generara un movimiento de caja en el sistema.'
+                 onclick="mostrar()">
+                <label>Consultar</label>
+            </div>
+        </form>
+    </div>
+    
+    
+    <div class="grupo_barras">
+        <div class="barra_horizontal sub_barra float_left">
+            <label class="titulo">Ventas:</label>
+            <div class="separador"></div>
+            <table id="wrapper">
+                <tr>
+                    <td><label >Por Ventas: </label></td>
+                    <td> <label class="sub-total">{{total_vendido}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+                <tr>
+                    <td><label>Por Recarga: </label></td>
+                    <td> <label class="sub-total">{{total_recarga}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+            </table>
+            <div class="separador"></div>
+             <label>Total: </label><label class="total">{{total_en_ventas}}</label><label class="bsf"> Bsf.</label>
+        </div>
+        
+        <div class="barra_horizontal sub_barra float_right">
+            <label class="titulo">Movimientos Caja:</label>
+            <div class="separador"></div>
+            <table id="wrapper">
+                <tr>
+                    <td><label >Mov. de Caja: </label></td>
+                    <td> <label class="sub-total">{{total_mov_caja}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+                <tr>
+                    <td><label>Ajustes de Caja: </label></td>
+                    <td> <label class="sub-total">{{total_ajustes}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+            </table>
+            <div class="separador"></div>
+             <label>Total: </label><label class="total">{{total_caja}}</label><label class="bsf"> Bsf.</label>
+        </div>
+        
+        <div class="barra_horizontal">
+            <label>Total Teorico en Caja: </label><label class="total" id="total_teorico">{{total_teorico}}</label><label class="bsf"> Bsf.</label>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="area_boton_ayuda">
+    <div class = "boton_accion"
+         title='Aquí podras accesar al menu de ayuda de caja, usalo si tienes alguna duda de esta sección del sistema.'
+		 onclick="ayuda('caja/ayuda','caja')">
+        <label>
+            Ayuda
+        </label>
+    </div>
+</div>
+
+
+{% endblock contenido_derecho %}
+
+

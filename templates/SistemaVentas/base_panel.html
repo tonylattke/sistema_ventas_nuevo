@@ -1,0 +1,32 @@
+{% extends "SistemaVentas/base.html" %}
+<!--
+Sistema de Ventas.
+
+Template base de todas las vistas con panel lateral Izquierdo.
+
+{#
+Bloques del template:
+    * 
+#}
+
+-->
+
+
+
+{% block contenido %}
+    <link href="/templates/SistemaVentas/base_panel.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <div id="panel_izquierdo_wrapper">
+        <div id="panel_izquierdo">
+            {% block panel %}
+            {% endblock    %}
+        </div>
+    </div>
+
+
+    {% block contenido_derecho %}
+    {% endblock                %}
+
+{% endblock contenido %}
+
+

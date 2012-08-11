@@ -1,0 +1,223 @@
+{% extends "ventas_app/base_panel.html" %}
+
+
+{% block css %}
+    <link href="/templates/ventas_app/vista_operaciones_caja/vista_cerrar.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $import("/templates/ventas_app/vista_operaciones_caja/vista_cerrar.js");
+    </script>
+{% endblock javascript %}
+
+{% block menu %}
+<ul>
+    <li><a href="vender">Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li><a href="inventario">Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+    <li class="current_page_item"><a>Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+{% block parametros_body %}onload="$('100').focus()"{% endblock %}  
+
+{% block panel %}
+
+<div class="subvista"
+     title='Aquí podras revisar el estado monetario de caja y los registros del sistema.'>
+        <label>Operaciones</label>
+</div>
+
+<div class="boton_subvista"
+     title='Aquí podras consultar el estado de la caja.'
+     onclick="javascript:window.location='caja'">
+    <label>Consultar Caja</label>
+</div>
+
+<div class="boton_subvista"
+     title='Aquí podras abrir caja.'
+     onclick="javascript:window.location='caja/abrir'">
+    <label>Realizar apertura de Caja</label>
+</div>
+
+<div class="boton_subvista"
+     title='Aquí podras realizar el cierre de caja.'
+     onclick="javascript:window.location='caja/cerrar'">
+    <label>Realizar cierre de Caja</label>
+</div>
+    
+{% endblock panel %}
+
+
+{% block contenido_derecho %}
+
+<div id="area_sobrante">
+    
+    <div class="grupo_barras">
+        <div class="barra_horizontal sub_barra float_left">
+            <label class="titulo">Ventas:</label>
+            <div class="separador"></div>
+            <table id="wrapper">
+                <tr>
+                    <td><label >Por Ventas: </label></td>
+                    <td> <label class="sub-total">{{total_vendido}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+                <tr>
+                    <td><label>Por Recarga: </label></td>
+                    <td> <label class="sub-total">{{total_recarga}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+            </table>
+            <div class="separador"></div>
+             <label>Total: </label><label class="total">{{total_en_ventas}}</label><label class="bsf"> Bsf.</label>
+        </div>
+        
+        <div class="barra_horizontal sub_barra float_right">
+            <label class="titulo">Movimientos Caja:</label>
+            <div class="separador"></div>
+            <table id="wrapper">
+                <tr>
+                    <td><label >Mov. de Caja: </label></td>
+                    <td> <label class="sub-total">{{total_mov_caja}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+                <tr>
+                    <td><label>Ajustes de Caja: </label></td>
+                    <td> <label class="sub-total">{{total_ajustes}}</label><label class="bsf"> Bsf.</label></td>
+                </tr>
+            </table>
+            <div class="separador"></div>
+             <label>Total: </label><label class="total">{{total_caja}}</label><label class="bsf"> Bsf.</label>
+        </div>
+        
+        <div class="barra_horizontal">
+            <label>Total Teorico en Caja: </label><label class="total" id="total_teorico">{{total_teorico}}</label><label class="bsf"> Bsf.</label>
+        </div>
+    </div>
+    
+    {% csrf_token %}
+    <div class="grupo_barras">
+	
+        <div class="barra_horizontal">
+            <label class="titulo">Billetes y Monedas:</label>
+            <div class="separador"></div>
+            
+            <div class="cont_horizontal cont_billetes" title="Billetes en Caja.">
+                <div>
+                    <label>100x</label>
+                    <input type="text" name="d100" id="100" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>50x</label>
+                    <input type="text" name="d50" id="50" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>20x</label>
+                    <input type="text" name="d20" id="20" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>10x</label>
+                    <input type="text" name="d10" id="10" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>5x</label>
+                    <input type="text" name="d5" id="5" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>2x</label>
+                    <input type="text" name="d2" id="2" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            <div class="cont_horizontal cont_monedas" title="Monedas en Caja.">
+                <div>
+                    <label>1x</label>
+                    <input type="text" name="d1" id="1" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>0.5x</label>
+                    <input type="text" name="d0.5" id="0.5" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>0.25x</label>
+                    <input type="text" name="d0.25" id="0.25" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>0.125x</label>
+                    <input type="text" name="d0.125" id="0.125" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>0.1x</label>
+                    <input type="text" name="d0.1" id="0.1" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>0.05x</label>
+                    <input type="text" name="d0.05" id="0.05" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+                
+                <div>
+                    <label>0.01x</label>
+                    <input type="text" name="d0.01" id="0.01" size="2" value="0" onkeyup="calcular_monedas()" />
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="barra_horizontal">
+            <label>Total Caja: </label><label class="total" id="total_caja">0</label><label class="bsf"> Bsf.</label>
+        </div>
+
+    </div>
+    
+    
+    <div class="barra_horizontal">
+        <label>Diferencia de totales: </label><label class="total" name="dif_totales" id="dif_totales">{{dif_totales}}</label><label class="bsf"> Bsf.</label>
+    </div>
+
+    	{% if apertura_caja == 'si' %}
+        <div class="boton_amarillo"
+	         title='Al hacer click aquí se generara un movimiento de caja en el sistema y actualizara los billetes.'
+	         onclick="realizar()">
+	        <label>Realizar</label>
+	    </div>
+    	{% else %}
+        <div class="boton_amarillo"
+	         title='Al hacer click aquí se generara un movimiento de caja en el sistema y actualizara los billetes.'
+	         onclick="alert('Debes abrir caja para poder cerrarla')">
+	        <label>Realizar</label>
+	    </div>
+	    {% endif %}
+
+</div>
+
+
+<div id="area_boton_ayuda">
+    <div class = "boton_accion"
+         title='Aquí podras accesar al menu de ayuda de cerrar caja, usalo si tienes alguna duda de esta sección del sistema.'
+		 onclick="ayuda('caja/cerrar/ayuda','caja_cerrar')">
+        <label>
+            Ayuda
+        </label>
+    </div>
+</div>
+
+
+{% endblock contenido_derecho %}
+
+

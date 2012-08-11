@@ -1,0 +1,145 @@
+/* Area de botones */
+.titulo {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+#div_hacer_ajuste table{
+    margin-left: 2px;
+    text-align: left;
+}
+
+/* Area sobrante */
+
+#area_sobrante {
+    float:left;
+    margin: 5px 0px 0px 20px;
+    border: 0px;
+    width: 710px;
+    min-height: 500px;
+}
+
+/* Area del boton de Ayuda */
+
+#area_boton_ayuda {
+    float:left;
+    width: 120px;
+    height:50px;
+    position: relative;
+    top: -50px;
+}
+
+/* Menu de billetes************************************************************/
+
+
+label.fecha_btn {
+    cursor: pointer;
+    color: yellow;
+}
+
+label.fecha_btn:hover {
+    font-weight: bold;
+}
+
+div.barra_horizontal {
+    width: 100%;
+    display: inline-block;
+    background-color: #202020;
+    padding: 2px 0;
+    margin-bottom: 10px;
+    
+    font-size: 16px;
+    
+    -moz-border-radius:    6px;
+    -webkit-border-radius: 6px;
+    border-radius:         6px;
+}
+
+div.barra_horizontal .titulo {
+    float: left;
+    padding-left: 10px;
+}
+
+div.barra_horizontal div.boton_amarillo {
+    float: right;
+    margin-right: 20px;
+    margin-top: 1px;
+}
+
+div.barra_horizontal #twrapper {
+    display: table;
+    text-align: right;
+}
+
+div.grupo_barras {
+    margin: 10px 0px;
+}
+
+div.sub_barra {
+    width: 49%;
+}
+
+.float_left {
+    float: left;
+}
+
+.float_right {
+    float: right;
+}
+
+label.total {
+    font-size: 24px;
+    font-weight: bolder;
+    color: #fdff6b;
+}
+
+label.sub-total {
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+}
+
+label.bsf {
+    font-size: 12px;
+    font-weight: normal;
+    color: white;
+}
+
+div.separador {
+    width: 100%;
+    height: 1px;
+    clear: both;
+    background-color: #888888;
+}
+
+/* Menu de billetes y monedas************************************************************/
+
+div.barra_horizontal div.cont_horizontal {
+    text-align: center;
+    display: table;
+    margin : 10px -30px 10px 16px;
+    clear : both;
+} 
+
+
+div.barra_horizontal div.cont_horizontal div {
+    float: left;
+    clear: none;
+    background-color: #888888;
+    
+    -moz-border-radius:    3px;
+    -webkit-border-radius: 3px;
+    border-radius:         3px;
+    
+    
+    padding: 0px 2px 0px 4px;
+    font-weight: bold;
+}
+
+div.barra_horizontal div.cont_monedas div {
+    margin : 2px 20px 2px 0px;
+}
+
+div.barra_horizontal div.cont_billetes div {
+    margin : 2px 50px 2px 0px;
+}
