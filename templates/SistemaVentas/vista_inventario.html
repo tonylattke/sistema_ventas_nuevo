@@ -1,0 +1,189 @@
+{% extends "SistemaVentas/base_panel.html" %}
+
+
+{% block css %}
+    <link href="/templates/SistemaVentas/vista_inventario.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $import("/templates/SistemaVentas/vista_inventario.js");
+    </script>
+{% endblock javascript %}
+
+{% block parametros_body %}onload="document.formulario.nombre.focus()"{% endblock %}  
+
+{% block menu %}
+<ul>
+    <li><a href="vender">Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li class="current_page_item"><a>Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+    <li><a href="caja">Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+
+
+{% block panel %}
+
+<div class="subvista">Lista de productos</div>
+    
+<div class="subpanel"
+     title='Area para agregar un nuevo movimiento de caja al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este movimiento.'>
+
+    <label class="titulo">Añadir un nuevo producto </label>
+    <form enctype="multipart/form-data" method="post" name="formulario" id="formulario" action='nuevo_producto_do'>
+        {% csrf_token %}
+        <div id="div_nuevo_producto"
+             title='Area para agregar un nuevo producto al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este producto.'>
+
+            <table border = "0">
+                <tr>
+                    <td> <label>Nombre:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_nombre"  size="16" name="nombre"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Precio:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_precio"  size="16" name="precio"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Cantidad:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_cantidad"  size="16" name="cantidad"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Descripción:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_descripcion"  size="16" name="descripcion"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Proveedor:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_proveedor"  size="16" name="proveedor"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Imagen:</label> </td>
+                    <td>
+                        <input type="file" name="foto" id="examinar_ruta_imagen">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="boton_amarillo"
+         title='Al hacer click aquí se generara un movimiento de caja en el sistema.'
+         onclick="agregar()">
+        <label>Realizar</label>
+        </div>
+        
+    </form>
+</div>
+
+<div class="boton_subvista"
+     title='Aumenta la cantidad de determinado producto dentro del sistema.'
+     onclick="javascript:window.location='inventario/compra'">
+    <label>Añadir compra de inventario</label>
+</div>
+
+<div class="boton_subvista"
+     title='Modifica el precio de un producto dentro del sistema.'
+	 onclick="javascript:window.location='inventario/modificar'">
+    <label>Modificar precio</label>
+</div>
+    
+{% endblock panel %}
+
+
+{% block contenido_derecho %}
+<div id="area_listado"
+     title='Estos son todos los productos del sistema de ventas almacenados actualmente.'>
+    <table>
+        <tr>
+            <td class="columna_imagen">
+                <label>
+                    Imagen
+                </label>
+            </td>            
+            <td class="columna_nombre">
+                <label>
+                    Nombre
+                </label>
+            </td>
+            <td class="columna_proveedor">
+                <label>
+                    Proveedor
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Cantidad
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Precio
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Operación
+                </label>
+            </td>   
+        </tr>
+        {%for p in inventario%}
+            <tr class="{% cycle 'fondo_blanco' 'fondo_negro' %}">
+                <td>
+                    {{p.imagen_tag|safe}}
+                </td>
+                <td>
+                    <label>
+                        {{p.nombre}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.proveedor}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.cantidad}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.precio_str}}
+                    </label>
+                </td>
+                <td>
+					<div class = "boton_amarillo"
+						 title='Aquí podras eliminar este producto del sistema.'>
+						<!--onclick="if(confirm('Esta seguro de eliminar {{p.nombre}} del inventario')) location.href='eliminar_producto/{{p.id}}'"-->
+						<label>
+							X
+						</label>
+					</div>
+                </td>
+            </tr>        
+        {%endfor%}
+    </table>
+    
+</div>
+
+<div id="area_boton_ayuda">
+    <div class = "boton_accion"
+         title='Aquí podras accesar al menu de ayuda de inventario, usalo si tienes alguna duda de esta sección del sistema.'
+		 onclick="ayuda('inventario/ayuda','inventario')">
+        <label>
+            Ayuda
+        </label>
+    </div>
+</div>
+
+{% endblock contenido_derecho %}
+

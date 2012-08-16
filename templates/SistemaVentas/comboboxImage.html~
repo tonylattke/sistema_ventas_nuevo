@@ -1,0 +1,19 @@
+<select name="issuetype" id="issuetype">
+
+  <option value="1" class="imagebacked" style="background-image: url(a.jpg);" selected>
+    Bug
+  </option>
+
+  <option value="2" class="imagebacked" style="background-image: url(b.jpg);">
+    New Feature
+  </option>
+
+  <option value="3" class="imagebacked" style="background-image: url(c.jpg);">
+    Task
+  </option>
+
+  <option value="4" class="imagebacked" style="background-image: url(/images/icons/improvement.gif);">
+    Improvement
+  </option>
+
+</select>

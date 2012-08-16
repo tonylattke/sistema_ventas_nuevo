@@ -1,0 +1,52 @@
+{% extends "SistemaVentas/base.html" %}
+
+
+{% block css %}
+    <link href="/templates/SistemaVentas/vista_ventas.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <!--<script type="text/javascript">
+        $import("/templates/SistemaVentas/vista_ventas.js");
+
+        function main() {
+            Global.compra  = new Compra();
+            Global.compra.observar(Global.compra.CAMBIO_PRODUCTOS, carrito_cambio);
+            
+            Global.carrito = new Carrito(Global.compra, Global, {'class': 'ListaProductosVertical', 'border' : 0});
+            $("contenedor_compras").appendChild(Global.carrito.element);
+
+            //{% if cinco_productos %}
+            //    {% for producto in cinco_productos %}
+            Global.lista_productos["{{ producto.nombre }}"] = new Producto( "{{ producto.nombre }}", +"{{ producto.precio_str }}", +"{{ producto.cantidad }}", "{{ producto.imagen.url }}" );
+            //    {% endfor %}
+            //{% endif %}
+            
+            Global.lista_clientes["0"] = new Cliente("Clientes", "0", "", 0);
+
+            Global.context = "{% csrf_token %}";
+            
+            $("prod_buscados").style.display = 'none';
+            $("buscar_txt").focus();
+        };
+
+    </script>-->
+{% endblock javascript %}
+
+{% block javascript_end %}
+    <script type="text/javascript" src="{{STATIC_URL}}steal/steal.js?SistemaVentas/sistema_ventas.js"></script>
+{% endblock %}
+
+{% block parametros_body %}{% endblock %}
+
+{% block menu %}
+<ul>
+    <li class="current_page_item"><a>Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li><a href="inventario">Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+	<li><a href="caja">Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+

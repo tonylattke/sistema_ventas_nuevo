@@ -1,0 +1,149 @@
+<h1> Sistema de Caja </h1>
+<h2> Vista de ventas </h2>
+
+<script type = "text/javascript" >
+//Clases:
+function ProductoComprarElement(tr, td1, td2) {
+    this.tr = tr;
+    this.td_nombre = td1;
+    this.td_numero = td2;
+}
+
+function ProductoComprar (nombre) {
+    this.nombre = nombre;
+    this.cantidad = 1;
+    this.element = null;
+    this.toElement = function() {
+        if(this.element == null) {
+            var td_rem    = document.createElement("TD");
+            var td_nombre = document.createElement("TD");
+            var td_numero = document.createElement("TD");
+            
+            var a_remove        = document.createElement("A");
+            a_remove.href       = "#";
+            a_remove.innerHTML  = "Rem";
+            a_remove.onclick    = Function("quitar_producto('"+this.nombre+"')");
+            td_rem.appendChild(a_remove);
+            td_nombre.innerHTML = this.nombre;
+            td_nombre.id = "nombre";
+            td_numero.innerHTML = this.cantidad;
+            td_numero.id = "numero";
+            
+            var tr = document.createElement("TR");
+            tr.appendChild(td_rem);
+            tr.appendChild(td_nombre);
+            tr.appendChild(td_numero);
+            tr.id = this.nombre;
+            this.element = new ProductoComprarElement(tr, td_nombre, td_numero); 
+        }
+        return this.element.tr;
+    };
+}
+
+//Variables Globales:
+var productos = [];
+
+//Acciones:
+function anadir_a_carrito(nombre_producto) {
+    var lista = document.getElementById("carrito");
+    var producto;
+        
+    for(var i = 0; i < productos.length; i++) {
+        if(productos[i].nombre == nombre_producto){
+            productos[i].cantidad++;
+            productos[i].element.td_numero.innerHTML = productos[i].cantidad;
+            return;
+        }
+    }
+    
+    producto = new ProductoComprar(nombre_producto);
+    productos.push(producto);
+    
+    lista.appendChild(producto.toElement());
+}
+
+function quitar_producto(nombre_producto){
+    for(var i = 0; i < productos.length; i++) {
+        if(productos[i].nombre == nombre_producto){
+            var lista = document.getElementById("carrito");
+            var elm = productos.splice(i,1)[0]; //Remueve el elemento del arreglo
+            lista.removeChild(elm.element.tr);
+            return;
+        }
+    }
+}
+
+function Producto (nombre) {
+    this.nombre = nombre;
+    this.precio = 0;
+}
+
+var lista_productos = [
+{% if lista_productos %}
+    {% for producto in lista_productos %}
+        new Producto( "{{ producto.nombre }}" ),
+    {% endfor %}
+{% endif %}
+];
+
+
+</script>
+
+<div class ="MasVendidos">
+
+{% if cinco_productos %}
+    <table class = "ListaProductosHorizontal">
+      <tr>
+    {% for producto in cinco_productos %}
+           <td onclick = "anadir_a_carrito('{{ producto.nombre }}')">
+               <img src="{{ producto.imagen.url }}" /> <br> <!-- El <br> debe ser quitado en pro del css -->
+               <label> {{ producto.nombre }} </label> <br>
+               <label> {{ producto.precio }} Bsf. </label>
+           </td>
+    {% endfor %}
+      </tr>
+    </table>
+{% else %}
+    <p> No hay productos para mostrar <p>
+{% endif %}
+
+</div>
+
+
+<div class ="BuscarProductos">
+
+{% if lista_productos %}
+    <table  class = "ListaProductosVertical">
+    {% for producto in lista_productos %}
+        <tr onclick = "anadir_a_carrito('{{ producto.nombre }}')">
+           <td>
+	     <table>
+	       <tr>
+		 <td>
+		   <img src="{{ producto.imagen.url }}" /> <br> <!-- El <br> debe ser quitado en pro del css -->
+		 </td>
+		 <td>
+		   <label>{{ producto.nombre }}</label>
+		   <br>
+		   <label>{{ producto.precio }} Bsf.</label>
+		 </td>
+	       </tr>
+	     </table>
+           </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p> No hay productos para mostrar <p>
+{% endif %}
+
+</div>
+
+
+<div class = "Compras">
+  <label>Compra</label>
+  <table border = 1 class = "ListaProductosVertical" id = "carrito">
+  </table>
+</div>
+
+

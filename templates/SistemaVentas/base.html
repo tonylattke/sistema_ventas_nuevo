@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+Sistema de Ventas.
+
+Este template para javascript brinda la funcion $import(path) que carga un
+archivo de javascript en el header y asegura que no haya repeticiones.
+
+{#
+Bloques del template:
+    * titulo: para cambiar el titulo de la pagina.
+
+    * css: para agregar tags al header para importar css.
+
+    * javascript: para ubicar una etiqueta <script type="text/javascript"> con
+                  los scripts java que vayan en el header.
+    
+    * header: para definir el header completo de la pagina.
+
+    * mensaje: para cambiar el modo en que son leidos los mensajes.
+
+    * error: para cambiar el modo en que son leidos los errores.
+
+    * parametros_body: para definir parametros del tag "body"
+    
+    * menu: para definir un menu horizontal superior.
+    
+    * contenido: para definir el contenido de la pagina.
+
+    * footer: para agregar contenido al footer.
+#}
+
+-->
+
+<html>
+    <head>
+        <title>{% block titulo %}Sistema de Ventas{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <link rel="icon" href="/templates/SistemaVentas/images/favicon.ico">
+        <link href="/templates/SistemaVentas/base.css" rel="stylesheet" type="text/css" media="screen" />
+        {% block css %}{% endblock %}
+        
+        <!--
+        <script type="text/javascript" src="/templates/prototype.js"></script>
+        
+        <script type="text/javascript">
+            /**
+             * @function $import(path)
+             * Carga un archivo de javascript en el header y asegura que no haya
+             * repeticiones.
+             * @augments
+             * path - la direccion url del archivo .js a cargar.
+             */
+            function $import(path){
+                //Importando js_extensions:
+                var scripts = document.getElementsByTagName("script");
+                for (var i=0; scripts.length > i; i++){
+                    if (scripts[i].src.match(path)) return false;
+                }
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = path;
+                document.getElementsByTagName('head')[0].appendChild(script);
+                return true;
+                
+            }
+            
+            /**
+             * Privado: Quita los avisos de mensaje y error en la parte superior
+             * de la pantalla.
+             */
+            function _quitar_avisos(){
+                var mensaje = $("AvisoMensaje"),
+                    error   = $("AvisoError");
+                
+                if(mensaje != null) mensaje.style.display = 'none';
+                if(error   != null) error.style.display   = 'none';
+            }
+            
+            setTimeout('_quitar_avisos()', 5000);
+			$import("/templates/SistemaVentas/base.js");
+	        var contexto = "{% csrf_token %}";
+        </script>
+        -->
+        
+        {% block javascript %}{% endblock %}
+    </head>
+    
+    <body {% block parametros_body %}{% endblock %}>
+        
+        <div id="wrapper">
+            
+            <!-- Begin #header -->
+            <div id="contenedor_header">
+                {% block header %}
+                <div id="header">
+                    <div id="logo">
+                        <div id="logo_carrera">
+                            <img src="/templates/SistemaVentas/images/irroba.png" alt="logo" width="98" height="100">
+                        </div>
+                        <h1>Sistema de Ventas</h1>
+                        <label>Ingeniería de la Computación</label>
+                    </div>
+                    <div id="menu">
+                        {% block menu %}
+                        {% endblock menu %}
+                    </div>
+                </div>
+                {% endblock header %}
+            </div>
+            <!-- end #header -->
+            
+            
+            <!-- Begin #page -->
+            <div id="page">
+                
+                
+                {% block contenido %}
+
+                {% endblock contenido %}
+
+                {% block mensaje %}
+                    {% if mensaje %}
+                        <!-- <div id="AvisoMensaje" ><label>{{ mensaje }}</label></div> -->
+                    {% endif %}
+                {% endblock mensaje %}
+                
+                {% block error %}
+                    {% if error %}
+                        <!-- <div id="AvisoError" ><label>{{ error }}</label></div> -->
+                    {% endif %}
+                {% endblock error %}
+            </div>
+            <!-- end #page -->
+            
+            
+        </div>
+        
+        
+        <!-- Begin #footer -->
+        <div id="contenedor_footer">
+            <div id="footer">
+                <p>Diseñado por <a href="http://ceic.fceusb.org/">Centro de Estudiantes de Ingeniería de la Computación</a>. Todos los derechos reservados.</p>
+            </div>
+        </div>
+        <!-- end #footer -->
+        
+    </body>
+    {% block javascript_end %}{% endblock %}
+
+</html>
+

@@ -1,0 +1,190 @@
+{% extends "ventas_app/base_panel.html" %}
+
+
+{% block css %}
+	<link href="/templates/ventas_app/vista_operaciones_inventario/vista_compra_inventario.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        var contexto = "{% csrf_token %}";
+        $import("/templates/ventas_app/vista_inventario.js");
+    </script>
+{% endblock javascript %}
+
+{% block parametros_body %}onload="document.formulario.nombre.focus()"{% endblock %}  
+
+{% block menu %}
+<ul>
+    <li><a href="vender">Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li class="current_page_item"><a>Inventario</a></li>
+    <li><a href="usuarios">Usuarios</a></li>
+    <li><a href="caja">Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+{% block panel %}
+
+<div class="subvista">Lista de productos</div>
+    
+<div class="subpanel"
+     title='Area para agregar un nuevo movimiento de caja al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este movimiento.'>
+
+    <label class="titulo">Añadir un nuevo producto </label>
+    <form enctype="multipart/form-data" method="post" name="formulario" id="formulario" action='nuevo_producto_do'>
+        {% csrf_token %}
+        <div id="div_nuevo_producto"
+             title='Area para agregar un nuevo producto al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este producto.'>
+
+            <table border = "0">
+                <tr>
+                    <td> <label>Nombre:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_nombre"  size="16" name="nombre"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Precio:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_precio"  size="16" name="precio"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Cantidad:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_cantidad"  size="16" name="cantidad"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Descripción:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_descripcion"  size="16" name="descripcion"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Proveedor:</label> </td>
+                    <td> <input type="text" id="nuevo_producto_proveedor"  size="16" name="proveedor"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Imagen:</label> </td>
+                    <td>
+                        <input type="file" name="foto" id="examinar_ruta_imagen">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="boton_amarillo"
+         title='Al hacer click aquí se generara un movimiento de caja en el sistema.'
+         onclick="agregar()">
+        <label>Realizar</label>
+        </div>
+        
+    </form>
+</div>
+
+<div class="boton_subvista"
+     title='Aumenta la cantidad de determinado producto dentro del sistema.'
+     onclick="javascript:window.location='inventario/compra'">
+    <label>Añadir compra de inventario</label>
+</div>
+
+<div class="boton_subvista"
+     title='Modifica el precio de un producto dentro del sistema.'
+	 onclick="javascript:window.location='inventario/modificar'">
+    <label>Modificar precio</label>
+</div>
+<div class="boton_subvista"
+     title='Genera un archivo con el listado de los productos del sistema.'
+ 	 onclick="javascript:window.location='listado_inventario_do'">
+    <label>Hacer Listado de Productos</label>
+</div>
+    
+{% endblock panel %}
+
+
+{% block contenido_derecho %}
+
+<div id = "lado_derecho">
+	<div id = "agregar">
+		<div id = "titulo_agregar">
+			Añade la compra de productos aquí
+		</div>
+		<form method="post" name="formulario" id="formulario" 
+				action= "inventario/compra_do">
+		    {% csrf_token %}
+
+			<div id="agregar_1">
+				<label>Producto: </label>
+				<select name="producto">
+				    {% for p in productos%}
+				    <option value="{{p.id}}">
+				        {{p.nombre}}
+				    </option>
+				    {% endfor %}
+				</select><br/>
+
+				<label>Cantidad a Agregar: </label>
+				<input name="cantidad" type="text" size="25" ><br/>
+			</div>
+
+			<div id="agregar_2">
+				<div id="agregar_2_1">
+					<label>Costo de la compra:</label>
+					<input name="costo" type="text" size="18"><label>(Opcional)</label><br/>
+				</div>
+				<div id="agregar_2_2">
+					<input type="submit" value="Agregar"/>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div id="listado_comprado">
+		<table>
+		    <tr>
+				<td class="columna_nombre">
+					<label>
+						Nombre de Producto
+					</label>
+				</td>
+				<td class="columna">
+					<label>
+						Cantidad
+					</label>
+				</td>
+				<td class="columna">
+					<label>
+						Fecha
+					</label>
+				</td>
+				<td class="columna">
+					<label>
+						Costo
+					</label>
+				</td>
+		    </tr>
+		    {% for c in compras%}
+		    <tr class="{% cycle 'fondo_blanco' 'fondo_negro' %}">
+		        <td>{{ c.producto.nombre }}</td>
+		        <td>{{ c.cantidad }}</td>
+		        <td>{{ c.fecha|date:'H:i d/M' }}</td>
+		        <td>{{ c.costo|default:"N/A" }}</td>
+		    </tr>
+		    {% endfor %}
+		</table>
+	</div>
+</div>
+
+<div id="area_boton_ayuda">
+    <div class = "boton_accion"
+         title='Aquí podras accesar al menu de ayuda de inventario, usalo si tienes alguna duda de esta sección del sistema.'
+		 onclick="ayuda('inventario/compra/ayuda','inventario_compra')">
+        <label>
+            Ayuda
+        </label>
+    </div>
+</div>
+
+{% endblock contenido_derecho %}
+

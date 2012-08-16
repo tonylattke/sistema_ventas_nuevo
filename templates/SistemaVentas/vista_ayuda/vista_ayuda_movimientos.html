@@ -1,0 +1,29 @@
+{% extends "ventas_app/base.html" %}
+
+
+{% block css %}
+    <link href="/templates/ventas_app/vista_ayuda/vista_ayuda.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block menu %}
+<ul>
+    <li class="current_page_item"><a>Ayuda al menu de Movimientos</a></li>
+</ul>
+{% endblock menu %}
+
+{% block contenido %}
+
+<div id="area_paginas">
+    <p> paginas de ayuda </p>
+</div>
+
+<div id="area_boton_regreso">
+    <div class = "boton_accion"
+	     onclick="javascript:window.location='movimientos'">
+		<label>
+            Regresar
+        </label>
+    </div>
+</div>
+
+{% endblock contenido %}

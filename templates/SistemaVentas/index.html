@@ -1,0 +1,38 @@
+{% extends "SistemaVentas/base.html" %}
+
+{% block css %}
+    <link href="/templates/SistemaVentas/index.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block parametros_body %}onload="document.formulario.username.focus()"{% endblock %}  
+
+{% block contenido %}
+        
+        <div id="centrado">  </div>
+        
+        <div id="contenedor_login">
+            <div class="login">
+                
+                <h1>Inicio de sesión</h1> 
+                
+                <form method="post" action="{% url login %}" name="formulario">
+                    {% csrf_token %}
+                    <table>
+                        <tbody>
+                            <tr> 
+                                <td> <label>Usuario</label> </td> 
+                                <td> <input type="text" name="username" autocomplete="off" size="32"> </td> 
+                            </tr> 
+                            <tr> 
+                                <td> <label>Contraseña</label> </td> 
+                                <td> <input type="password" name="password" size="32"> </td> 
+                            </tr> 
+                        </tbody>
+                    </table> 
+                    <input id="iniciar_btn" type="submit" value="Iniciar sesión"> 
+                </form>
+                
+            </div> 
+        </div>        
+
+{% endblock contenido %}

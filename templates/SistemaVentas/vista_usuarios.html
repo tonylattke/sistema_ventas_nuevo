@@ -1,0 +1,189 @@
+{% extends "SistemaVentas/base_panel.html" %}
+
+
+{% block css %}
+    <link href="/templates/SistemaVentas/vista_usuarios.css" rel="stylesheet" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $import("/templates/SistemaVentas/vista_usuarios.js");
+    </script>
+{% endblock javascript %}
+
+{% block parametros_body %}onload="document.formulario.nombre.focus()"{% endblock %}  
+
+{% block menu %}
+<ul>
+    <li><a href="vender">Ventas</a></li>
+    <li><a href="movimientos">Movimientos</a></li>
+    <li><a href="inventario">Inventario</a></li>
+    <li class="current_page_item"><a>Usuarios</a></li>
+    <li><a href="caja">Caja</a></li>
+    <li class="exit"><a onclick="if(confirm('¿Estas seguro de que deseas salir?')) location.href='_logout'">Salir</a></li>
+</ul>
+{% endblock menu %}
+
+
+{% block panel %}
+
+<div class="subvista">Lista de Usuarios </div>
+    
+<div class="subpanel" id="div_nuevo_movimiento"
+     title='Area para agregar un nuevo movimiento de caja al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este movimiento.'>
+
+    <label class="titulo">Añadir un nuevo Usuario </label>
+    <form method="post" name="formulario" id="formulario" action= "nuevo_usuario_do">
+    {% csrf_token %}
+        <div id="div_nuevo_cliente"
+             title='Area para agregar un nuevo usuario al sistema.
+Uso:
+- Rellena los datos del formulario.
+- Si los datos no son validos no se efectuara el registro de este nuevo usuario.'>
+            <table border = "0">
+
+                <tr>
+                    <td> <label>Nombre:</label> </td>
+                    <td> <input type="text" id="nuevo_cliente_Nombre" name="nombre"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Cedula:</label> </td>
+                    <td>
+                        <input type="text" id="nuevo_cliente_Cedula" name="cedula" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label>Carnet:</label> </td>
+                    <td> <input type="text" id="nuevo_cliente_Carnet" name="carnet"/> </td>
+                </tr>
+                <tr>
+                    <td> <label>Saldo:</label> </td>
+                    <td> <input type="text" id="nuevo_cliente_Saldo" name="saldo" value="0" /> </td>
+                </tr>
+            </table>
+        </div>
+        
+    	{% if apertura_caja == 'si' %}
+
+        <div    class="boton_amarillo"
+                title='Añade el usuario al sistema con las espesificaciones indicadas en la parte superior.'
+                onclick = 'agregar()' >
+            <label>Añadir Usuario</label>
+        </div>
+
+    	{% else %}
+
+        <div    class="boton_amarillo"
+                title='Añade el usuario al sistema con las espesificaciones indicadas en la parte superior.'
+                onclick="alert('Debes abrir caja para poder comenzar a inscribir usuarios')" >
+            <label>Añadir Usuario</label>
+        </div>
+
+	    {% endif %}
+
+    </form>
+</div>
+
+<!--
+<div class="boton_subvista"
+     title='Genera un archivo con todos los usuarios del sistema.'>
+    <label>Hacer Listado de Usuarios</label>
+</div>
+-->
+    
+{% endblock panel %}
+
+
+{% block contenido_derecho %}
+
+<div id="area_listado"
+     title='Estos son todos los usuarios del sistema de ventas registrados actualmente.'>
+    <table>
+        <tr>
+            <td class="columna">
+                <label>
+                    Cedula
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Carnet
+                </label>
+            </td>
+            <td class="columna_nombre">
+                <label>
+                    Nombre
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Aporte
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Saldo
+                </label>
+            </td>
+            <td class="columna">
+                <label>
+                    Operación
+                </label>
+            </td>   
+        </tr>
+        {%for p in usuario%}
+            <tr class="{% cycle 'fondo_blanco' 'fondo_negro' %}">
+                <td>
+                    <label>
+                        {{p.cedula}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.carnet}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.nombre}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.aporte_str}}
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        {{p.saldo_str}}
+                    </label>
+                </td>
+                <td>
+					<div class = "boton_amarillo"
+						 title='Aquí podras eliminar este movimiento del sistema.'>
+			            <!-- onclick="if(confirm('Esta seguro {{p.nombre}}')) location.href='eliminar_usuario/{{p.cedula}}'" -->
+						<label>
+							X
+						</label>
+					</div>
+                </td>
+            </tr>        
+        {%endfor%}    
+    </table>
+</div>
+
+<div id="area_boton_ayuda">
+    <div class = "boton_accion"
+         title='Aquí podras accesar al menu de ayuda de usuarios, usalo si tienes alguna duda de esta sección del sistema.'
+ 		 onclick="ayuda('usuarios/ayuda','usuarios')">
+        <label>
+            Ayuda
+        </label>
+    </div>
+</div>
+
+{% endblock contenido_derecho %}
+
