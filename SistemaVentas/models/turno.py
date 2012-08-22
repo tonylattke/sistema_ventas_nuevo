@@ -16,7 +16,7 @@ class Turno(models.Model):
                     'cajero'       : self.cajero,
                     'fecha_inicio' : self.fecha_inicio,
                     'fecha_fin'    : self.fecha_fin,
-                    'ajuste'       : float(self.ajuste)
+                    'ajuste'       : self.ajuste
                 }
 
     class Meta:

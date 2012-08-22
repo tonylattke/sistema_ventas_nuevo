@@ -14,7 +14,7 @@ from django.utils.itercompat import product
 
 @login_required(login_url='')
 def get(request):
-    resultados = CompraInventario.objects..all()
+    resultados = CompraInventario.objects.all()
     
     respuesta = []
     for compraInventario in resultados:
@@ -27,20 +27,20 @@ def get(request):
 @transaction.commit_on_success
 @login_required(login_url='')
 def post(request):
-    productoAux = get_object_or_404(Producto, id=id)
+    productoAux = get_object_or_404(Producto, id=request.GET['producto'])
     
     costoAux = 0
     
     if(request.GET['costo']):
-        costoAux = long(request.GET['costo'])
+        costoAux = float(request.GET['costo'])
     else:
         costoAux = None
     
     compraInventario = CompraInventario(
                         producto = productoAux,
-                        cantidad = request.GET["cantidad"],
-                        fecha    = datetime.now(,)
-                        costo    = costoAux
+                        cantidad = int(request.GET["cantidad"]),
+                        fecha    = datetime.now(),
+                        costo    = float(costoAux)
                       )
     
     compraInventario.save()
