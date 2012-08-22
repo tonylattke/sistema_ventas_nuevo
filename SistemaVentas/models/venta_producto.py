@@ -19,6 +19,14 @@ class VentaProducto(models.Model):
     
     def usuario(self): return self.factura.usuario
 
+    def resumen(self):
+        return {
+                    'producto' : self.producto,
+                    'precio'   : self.precio(),
+                    'cantidad' : self.cantidad,
+                    'factura'  : self.factura
+                }
+
     class Meta:
         app_label = 'SistemaVentas' 
         unique_together = ('producto', 'factura',)

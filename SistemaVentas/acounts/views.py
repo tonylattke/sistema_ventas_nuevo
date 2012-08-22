@@ -1,6 +1,5 @@
 from django.shortcuts     import render_to_response, get_object_or_404, redirect
 from SistemaVentas.models    import *
-from SistemaVentas.movimiento.funciones import *
 from django.db.models     import *
 from django.template      import RequestContext
 from django.core.urlresolvers       import reverse

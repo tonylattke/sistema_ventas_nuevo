@@ -15,6 +15,13 @@ class Deuda(models.Model):
     def __unicode__(self):
         return str(self.usuario)+" "+str(self.producto)
 
+    def resumen(self):
+        return {
+                    'producto'     : self.producto,
+                    'cantidad'     : self.cantidad,
+                    'usuario'     : self.usuario
+                }
+
     class Meta:
         app_label = 'SistemaVentas'        
         unique_together = ('producto', 'usuario',)

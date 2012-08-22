@@ -11,6 +11,14 @@ class Turno(models.Model):
     fecha_fin       = models.DateTimeField('fecha de inicio', unique = True , null = True)
     ajuste          = models.ForeignKey(MovimientoCaja, null = True)
 
+    def resumen(self):
+        return {
+                    'cajero'       : self.cajero,
+                    'fecha_inicio' : self.fecha_inicio,
+                    'fecha_fin'    : self.fecha_fin,
+                    'ajuste'       : float(self.ajuste)
+                }
+
     class Meta:
         app_label = 'SistemaVentas' 
         unique_together = ('fecha_inicio', 'cajero')

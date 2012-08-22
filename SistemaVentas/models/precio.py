@@ -13,6 +13,13 @@ class Precio(models.Model):
     
     def __unicode__(self):
         return self.producto.nombre+" "+str(self.valor)+" Bfs" #self.fecha.strftime("%d-%m-%Y : %I %p")
+
+    def resumen(self):
+        return {
+                    'producto'  : self.producto,
+                    'valor'     : float(self.valor),
+                    'fecha'     : self.fecha
+                }
     
     class Meta:
         app_label = 'SistemaVentas' 

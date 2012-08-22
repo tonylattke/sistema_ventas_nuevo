@@ -16,6 +16,12 @@ class Factura(models.Model):
     def __unicode__(self):
         return str(self.id)
 
+    def resumen(self):
+        return {
+                    'fecha'     : self.fecha,
+                    'usuario'     : self.usuario
+                }
+
     class Meta:
         app_label = 'SistemaVentas' 
         ordering = ['-fecha']

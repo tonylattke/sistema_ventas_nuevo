@@ -15,5 +15,13 @@ class CompraInventario(models.Model):
     def __unicode__(self):
         return str(self.cantidad)+" "+str(self.producto)
 
+    def resumen(self):
+        return {
+                    'producto'  : self.producto,
+                    'cantidad'  : int(self.cantidad),
+                    'fecha'     : self.fecha,
+                    'costo'     : float(self.costo)
+                }
+
     class Meta:
         app_label = 'SistemaVentas'

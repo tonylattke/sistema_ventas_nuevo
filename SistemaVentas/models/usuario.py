@@ -30,6 +30,14 @@ class Usuario(models.Model):
     def __unicode__(self):
         return self.nombre
 
+    def resumen(self):
+        return {
+                    'cedula'     : self.cedula,
+                    'carnet'     : self.carnet,
+                    'nombre'     : self.nombre,
+                    'saldo'      : self.saldo
+                }
+
     class Meta:
         app_label = 'SistemaVentas' 
         ordering = ['fecha']

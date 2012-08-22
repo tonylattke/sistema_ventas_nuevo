@@ -5,6 +5,5 @@ from django.conf import settings
 urlpatterns = patterns('',
     url(r'^get/$'            , 'SistemaVentas.producto.views.get'),
     url(r'^post/$'           , 'SistemaVentas.producto.views.post'),
-    url(r'^put/(?P<id>\d+)$' , 'SistemaVentas.producto.views.put'),
     url(r'^delete/(?P<id>\d+)$' , 'SistemaVentas.producto.views.delete'),
 )

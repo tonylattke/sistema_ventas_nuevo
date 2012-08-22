@@ -27,17 +27,17 @@ def get(request):
 @login_required(login_url='')
 def post(request):
     producto = Producto(
-                        nombre   = request.GET["nombre"],
-                        cantidad = request.GET["cantidad"],
+                        nombre   = request.POST["nombre"],
+                        cantidad = request.POST["cantidad"],
                         imagen   = 'Imagenes/Productos/vario.jpg', #request.FILES["foto"],
                         ventas   = 0,
-                        descripcion = request.GET["descripcion"],
-                        proveedor = request.GET["proveedor"]
+                        descripcion = request.POST["descripcion"],
+                        proveedor = request.POST["proveedor"]
                         )
     
     producto.save()
     
-    precio = Precio( producto = producto, fecha = datetime.now(), valor = request.GET["precio"])
+    precio = Precio( producto = producto, fecha = datetime.now(), valor = request.POST["precio"])
     precio.save()
     
     return HttpResponse(simplejson.dumps( producto.resumen()), content_type = 'application/javascript; charset=utf8')
@@ -49,12 +49,12 @@ def post(request):
 def put(request, id):
     producto = get_object_or_404(Producto, id=id)
     
-    if request.GET.has_key('precio'):
-        precio = Precio( producto = producto, fecha = datetime.now(), valor = request.GET["precio"])
+    if request.POST.has_key('precio'):
+        precio = Precio( producto = producto, fecha = datetime.now(), valor = request.POST["precio"])
         precio.save()
     
-    if request.GET.has_key('inventario'):
-        producto.cantidad = request.GET["inventario"]
+    if request.POST.has_key('inventario'):
+        producto.cantidad = request.POST["inventario"]
     
     producto.save()
     
@@ -69,6 +69,3 @@ def delete(request, id):
     producto.delete()
     
     return HttpResponse(content_type = 'application/javascript; charset=utf8')
-
-
-

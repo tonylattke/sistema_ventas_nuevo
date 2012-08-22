@@ -60,7 +60,6 @@ class Producto(models.Model):
                     'proveedor'  : self.proveedor
                 }
     
-    
     class Meta:
         app_label = 'SistemaVentas' 
         ordering = ['-ventas']

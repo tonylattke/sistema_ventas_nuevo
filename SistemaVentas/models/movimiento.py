@@ -27,6 +27,13 @@ class MovimientoVentas(Movimiento):
     tipo     = models.CharField(max_length=1, choices = TIPOS)
     factura  = models.ForeignKey(Factura)
     
+    def resumen(self):
+        return {
+                    'cantidad' : self.cantidad,
+                    'tipo'     : self.tipo,
+                    'factura'  : self.factura
+                }
+    
     class Meta:
         app_label = 'SistemaVentas' 
         unique_together = ('factura', 'tipo')
@@ -45,6 +52,14 @@ class MovimientoCaja(Movimiento):
 
     def get_descripcion(self):
         return self.descripcion
+
+    def resumen(self):
+        return {
+                    'cantidad' : self.cantidad,
+                    'tipo'     : self.tipo,
+                    'descripcion'  : self.descripcion,
+                    'fecha'  : self.fecha
+                }
 
     class Meta:
         app_label = 'SistemaVentas' 
