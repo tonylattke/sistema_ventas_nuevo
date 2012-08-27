@@ -16,6 +16,8 @@ function($) {
     /** Area donde se renderizaran las pantallas **/
     PAGE = $('#page');
 
+    //Mejorar
+    error = function(xhr, texto, error) { alert("Error:"+text+", "+error); console.log(xhr); };
 
 })
 .then(

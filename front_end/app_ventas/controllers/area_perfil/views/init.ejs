@@ -1,0 +1,11 @@
+<div class="user_profile">
+    <div class="username">Cajero: 
+        <strong>
+        <% if(firstname) { %>
+            <%= firstname %> <%= lastname %>
+        <% } else { %>
+            <%= username %>
+        <% } %>
+        </strong>
+    </div>
+</div>
