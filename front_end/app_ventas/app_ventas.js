@@ -24,5 +24,5 @@ function($) {
 function($) {
 
     /** INICIALIZACION; **/
-    new Routing($("body"));
+    new Routing(document.body);
 });
