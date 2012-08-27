@@ -1,5 +1,6 @@
 ## Proyecto ##
 media/
+*.sqlite
 
 #################
 ## Eclipse

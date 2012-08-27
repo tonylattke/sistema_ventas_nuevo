@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <script type='text/javascript' src='{{ STATIC_URL }}steal/steal.js?js/login.js'></script>
+{% endblock %}
+
+{% block contenido %}
+        <div class="login">
+            <h1>Inicio de sesión</h1>
+            
+            <form method="post" action="{% url login %}" name="formulario">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td> <label for="username">Usuario</label> </td>
+                        <td> <input type="text" name="username" id="username" autocomplete="off" size="32"> </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="password">Contraseña</label> </td>
+                        <td> <input type="password" name="password" id="password" size="32"> </td>
+                    </tr>
+                </table>
+                <input id="iniciar_btn" type="submit" value="Iniciar sesión">
+            </form>
+        </div>
+
+{% endblock contenido %}

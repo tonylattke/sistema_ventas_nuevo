@@ -1,0 +1,17 @@
+/* ------------------------------------------------------------------------------------ */
+/* Area de configuracion de pago */
+
+div.configuracion_pago {
+    padding: 5px 0px 0px 20px;
+    border-top: 1px solid  #343434;
+    text-align: center;
+    height: 145px;
+}
+
+div.configuracion_pago table {
+    text-align: left;
+}
+
+div.configuracion_pago label {
+    margin-right: 6px;
+}

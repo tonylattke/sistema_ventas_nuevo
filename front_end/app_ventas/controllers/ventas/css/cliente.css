@@ -1,0 +1,57 @@
+/* ------------------------------------------------------------------------------------ */
+/* Area del  cliente */
+
+#area_cliente {
+    float: left;
+    width: 306px;
+    height:330px;
+    -moz-border-radius:6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+
+label.titulo {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+div.Clientes {
+    width: 306px;
+    text-align: center;
+    background: #45484d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(top,  #45484d 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    border-radius: 10px;
+    padding-top: 5px;
+}
+
+#div_cedula_ok {
+    display: none;
+    text-align: center;
+    padding-left: 20px;
+    padding-top: 10px;
+    margin: 5px 0px 10px 0px;
+    border-top: 2px solid  #343434;
+}
+
+#div_cedula_ok label.nombre {
+    font-weight: bold;
+}
+
+#div_cedula_ok table {
+    text-align: left;
+}
+
+div.nuevo_cliente {
+    padding: 5px 0px 5px 20px;
+    margin: 5px 0px 0px 0px;
+    text-align: left;
+    border-top: 1px solid  #343434;
+}
