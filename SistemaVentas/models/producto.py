@@ -11,7 +11,7 @@ class Producto(models.Model):
     ventas   = models.IntegerField(default = 0)
     descripcion = models.CharField(max_length=128, null = True)
     proveedor = models.CharField(max_length=128, null = True)
-    """
+    
     def get_nombre(self):
         return self.nombre
 
@@ -42,7 +42,7 @@ class Producto(models.Model):
     
     def __unicode__(self):
         return self.nombre
-    """
+    
 
     def precio(self):
         precios = self.precio_set.filter(fecha__lte=datetime.now)

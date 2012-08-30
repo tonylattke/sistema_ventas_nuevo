@@ -8,6 +8,7 @@ from django.contrib.auth            import authenticate, login, logout
 from django.utils                   import simplejson
 from django.http                    import HttpResponse
 
+from SistemaVentas.models           import Turno
 
 def indice(request):
     if request.user.is_authenticated():
