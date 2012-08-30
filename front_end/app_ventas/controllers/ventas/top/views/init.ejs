@@ -1,0 +1,17 @@
+<%# Recibe una lista de productos %>
+
+<div class ="MasVendidos" title="Productos más vendidos">
+
+    <% if(this.length > 0) { %>
+
+        <div class = "ListaProductosHorizontal">
+            <% this.forEach(function(producto, i) { %>
+                <%== $.View('//'+CONTROLLERS + 'ventas/top/views/producto.ejs', producto )%>
+            <% }); %>
+        </div>
+
+    <% } else { %>
+        <p> No hay productos para mostrar </p>
+    <% } %>
+
+</div>
