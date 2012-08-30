@@ -11,7 +11,7 @@ class Producto(models.Model):
     ventas   = models.IntegerField(default = 0)
     descripcion = models.CharField(max_length=128, null = True)
     proveedor = models.CharField(max_length=128, null = True)
-    
+    """
     def get_nombre(self):
         return self.nombre
 
@@ -27,14 +27,7 @@ class Producto(models.Model):
             return precios[0]
         else:
             return None
-    
-    def precio(self):
-        p = self.precio_obj()
-        if(p != None):
-            return p.valor
-        else:
-            return 0.0
-        
+
     def precio_str(self):
         return str(self.precio()).rstrip('0').rstrip('.')
     precio_str.short_description = 'Precio'
@@ -49,17 +42,32 @@ class Producto(models.Model):
     
     def __unicode__(self):
         return self.nombre
-    
+    """
+
+    def precio(self):
+        precios = self.precio_set.filter(fecha__lte=datetime.now)
+        if(precios.count() > 0):
+            return precios[0]
+        else:
+            return None
+
+    def precio_valor(self):
+        precio = self.precio()
+        if precio:
+            return float(precio.valor)
+        else:
+            return 0
+
     def resumen(self):
         return {
                     'nombre'     : self.nombre,
-                    'precio'     : float(self.precio()),
+                    'precio'     : self.precio_valor(),
                     'inventario' : self.cantidad,
                     'imagen'     : self.imagen.url,
                     'descripcion': self.descripcion,
                     'proveedor'  : self.proveedor
                 }
-    
+
     class Meta:
-        app_label = 'SistemaVentas' 
+        app_label = 'SistemaVentas'
         ordering = ['-ventas']
