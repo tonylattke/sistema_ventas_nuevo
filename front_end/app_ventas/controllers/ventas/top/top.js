@@ -9,7 +9,7 @@ function($) {
 
 
 
-$.Controller("Ventana.Ventas.Top",
+$.Controller("ventana.ventas.Top",
 /** @Static */ {
     pluginName : "ventas_top"
 

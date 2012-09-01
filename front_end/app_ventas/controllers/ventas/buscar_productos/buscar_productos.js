@@ -7,7 +7,7 @@ function($) {
 
 
 
-$.Controller("Ventana.Ventas.BuscarProductos",
+$.Controller("ventana.ventas.BuscarProductos",
 /** @Static */ {
     pluginName : "ventas_buscar_productos"
 

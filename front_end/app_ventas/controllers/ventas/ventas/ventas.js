@@ -9,9 +9,7 @@ steal(
 
 function($) {
 
-
-
-$.Controller("Ventana.Ventas",
+$.Controller("ventana.Ventas",
 /** @Static */ {
     pluginName : "ventana_ventas"
 
@@ -24,9 +22,6 @@ $.Controller("Ventana.Ventas",
         $("#area_busqueda").ventas_buscar_productos();
     }
 });
-
-
-
 
 });
 
