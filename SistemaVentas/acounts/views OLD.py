@@ -66,13 +66,13 @@ def desloguear(request):
 """
 @login_required(login_url='')
 def ver_movimientos_raw(request, fi_dt, ff_dt):
-    lista_movimientos_caja = MovimientoCaja.objects.filter(fecha__gte=fi_dt, fecha__lte = ff_dt).order_by('-fecha')
+    lista_movimientos_caja = MovimientoCaja.objects.filter(fecha__gte=fi_dt, fecha__lte=ff_dt).order_by('-fecha')
     lista_movimientos_ventas = VentaProducto.objects.filter(factura__fecha__gte=fi_dt, factura__fecha__lte = ff_dt).order_by('-factura__fecha')
     lista_facturas = Factura.objects.filter(fecha__gte=fi_dt, fecha__lte = ff_dt).order_by('-fecha')
 
     total_vendido_hoy = movimientos_ventas(fi_dt, ff_dt)
     total_recarga_hoy = movimientos_recarga(fi_dt, ff_dt)
-    return render_to_response(  'SistemaVentas/vista_movimientos.html',
+    return render_to_response('SistemaVentas/vista_movimientos.html',
                                 {
                                     "fecha_inical"     : fi_dt,
                                     "fecha_final"      : ff_dt,
@@ -81,7 +81,7 @@ def ver_movimientos_raw(request, fi_dt, ff_dt):
                                     "facturas"         : lista_facturas,
                                     "totalVendidoHoy"  : total_vendido_hoy,
                                     "totalRecargaHoy"  : total_recarga_hoy,
-                                    "apertura_caja"   : verificar_apertura_caja(1),
+                                    "apertura_caja"    : verificar_apertura_caja(1),
                                 },
                                 context_instance=RequestContext(request),
                                 )
