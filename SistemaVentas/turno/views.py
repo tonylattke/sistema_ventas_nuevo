@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from django.db            import transaction
 from django.shortcuts     import get_object_or_404
 
-from SistemaVentas.models import Turno
+from SistemaVentas.models import Turno, MovimientoCaja
 
 
 
@@ -27,10 +27,10 @@ def get(request):
 @login_required(login_url='')
 def post(request):
     turno = Turno(
-                        cajero   = request.GET["nombre"],
+                        cajero   = request.POST["nombre"],
                         fecha_inicio = datetime.now(),
                         fecha_fin = datetime.now(),
-                        ajuste = 0
+                        ajuste = None
                  )
     
     turno.save()
@@ -42,14 +42,28 @@ def post(request):
 @transaction.commit_on_success
 @login_required(login_url='')
 def put(request, id):
-    turno = get_object_or_404(Turno, id=id)
+    turno = get_object_or_404(Turno, id=id)    
+    turno.fecha_fin = datetime.now()
     
-    if request.GET.has_key('fecha_fin'):
-        turno.fecha_fin = datetime.now()
-    
-    if request.GET.has_key('ajuste'):
-        turno.ajuste = request.GET["ajuste"]
-    
+    if request.POST.has_key('cantidad') & request.POST.has_key('tipo'):
+        movimientoAux = None
+        if request.POST["tipo"] == 'P':
+            movimientoAux = MovimientoCaja(
+                                cantidad    = float(request.POST["cantidad"]),
+                                tipo        = request.POST["tipo"],
+                                descripcion = "Falto dinero en caja", 
+                                fecha       = datetime.now()
+                            )
+            movimientoAux.save()
+        if request.POST["tipo"] == 'N':
+            movimientoAux = MovimientoCaja(
+                                cantidad    = float(request.POST["cantidad"]),
+                                tipo        = request.POST["tipo"],
+                                descripcion = "Sobro dinero en caja", 
+                                fecha       = datetime.now()
+                            )
+            movimientoAux.save()
+        turno.ajuste = movimientoAux
     turno.save()
     
     return HttpResponse(simplejson.dumps( turno.resumen() ), content_type = 'application/javascript; charset=utf8')
@@ -63,6 +77,3 @@ def delete(request, id):
     turno.delete()
     
     return HttpResponse(content_type = 'application/javascript; charset=utf8')
-
-
-

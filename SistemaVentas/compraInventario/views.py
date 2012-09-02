@@ -27,18 +27,18 @@ def get(request):
 @transaction.commit_on_success
 @login_required(login_url='')
 def post(request):
-    productoAux = get_object_or_404(Producto, id=request.GET['producto'])
+    productoAux = get_object_or_404(Producto, id=request.POST['producto'])
     
     costoAux = 0
     
-    if(request.GET['costo']):
-        costoAux = float(request.GET['costo'])
+    if(request.POST['costo']):
+        costoAux = float(request.POST['costo'])
     else:
         costoAux = None
     
     compraInventario = CompraInventario(
                         producto = productoAux,
-                        cantidad = int(request.GET["cantidad"]),
+                        cantidad = int(request.POST["cantidad"]),
                         fecha    = datetime.now(),
                         costo    = float(costoAux)
                       )
@@ -56,7 +56,7 @@ def post(request):
 def delete(request, id):
     compraInventario = get_object_or_404(CompraInventario, id=id)
     
-    producto = get_object_or_404(Producto, id=compraInventario.producto)
+    producto = get_object_or_404(Producto, id=compraInventario.producto.id)
     if compraInventario.cantidad <= producto.cantidad:
         producto.cantidad -= compraInventario.cantidad
         producto.save() 

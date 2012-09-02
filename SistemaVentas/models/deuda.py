@@ -17,9 +17,9 @@ class Deuda(models.Model):
 
     def resumen(self):
         return {
-                    'producto'     : self.producto,
+                    'producto'     : self.producto.resumen(),
                     'cantidad'     : self.cantidad,
-                    'usuario'     : self.usuario
+                    'usuario'     : self.usuario.resumen()
                 }
 
     class Meta:

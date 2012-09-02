@@ -86,34 +86,29 @@ def post(request):
 @transaction.commit_on_success
 @login_required(login_url='')
 def delete(request, id):
-    factura = get_object_or_404(Factura, id=id)
-    movimientoVentas = MovimientoVentas.objects.all()
-    usuarios  = Usuario.objects.all()
-    ventaProductos = VentaProducto.objects.all()
+    facturaAux = get_object_or_404(Factura, id=id)
+    movimientoVentas = MovimientoVentas.objects.filter(factura=facturaAux.id)
+    usuario  = Usuario.objects.filter(cedula=facturaAux.usuario.cedula)
+    ventaProductos = VentaProducto.objects.filter(factura=facturaAux.id)
     productos = Producto.objects.all()
     
     for movimiento in movimientoVentas:
-        if movimiento.factura == factura.id:
-            if movimiento.tipo == 'R':
-                for usr in usuarios:
-                    if usr.cedula == factura.usuario:
-                        usr.saldo -= movimiento.cantidad
-                        usr.save()
-            if movimiento.tipo == 'S':
-                for usr in usuarios:
-                    if usr.cedula == factura.usuario:
-                        usr.saldo += movimiento.cantidad
-                        usr.save()
-            movimiento.delete()
+        if movimiento.tipo == 'R':
+            usuario.saldo -= movimiento.cantidad
+            usuario.save()
+        if movimiento.tipo == 'S':
+            usuario.saldo += movimiento.cantidad
+            usuario.save()
+        movimiento.delete()
     
     for ventaProducto in ventaProductos:
-        if ventaProducto.factura == factura.id:
-            for producto in productos:
-                if producto.id == ventaProducto.producto:
-                    producto.cantidad += ventaProducto.cantidad
-                    producto.ventas -= 1 
+        for producto in productos:
+            if producto.id == ventaProducto.producto:
+                producto.cantidad += ventaProducto.cantidad
+                producto.ventas -= 1
+                producto.save() 
         ventaProducto.delete()
 
-    factura.delete()
+    facturaAux.delete()
     
     return HttpResponse(content_type = 'application/javascript; charset=utf8')

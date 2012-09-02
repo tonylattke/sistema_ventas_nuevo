@@ -26,9 +26,9 @@ def get(request):
 @login_required(login_url='')
 def post(request):
     movimiento = MovimientoCaja(
-                        cantidad    = float(request.GET["cantidad"]),
-                        tipo        = request.GET["tipo"],
-                        descripcion = request.GET["descripcion"], 
+                        cantidad    = float(request.POST["cantidad"]),
+                        tipo        = request.POST["tipo"],
+                        descripcion = request.POST["descripcion"], 
                         fecha       = datetime.now()
                  )
 
@@ -42,14 +42,14 @@ def post(request):
 def put(request, id):
     movimiento = get_object_or_404(MovimientoCaja, id=id)
     
-    if request.GET.has_key('cantidad'):
-        movimiento.cantidad = float(request.GET["cantidad"])
+    if request.POST.has_key('cantidad'):
+        movimiento.cantidad = float(request.POST["cantidad"])
     
-    if request.GET.has_key('tipo'):
-        movimiento.tipo = request.GET["tipo"]
+    if request.POST.has_key('tipo'):
+        movimiento.tipo = request.POST["tipo"]
 
-    if request.GET.has_key('descripcion'):
-        movimiento.descripcion = request.GET["descripcion"]
+    if request.POST.has_key('descripcion'):
+        movimiento.descripcion = request.POST["descripcion"]
     
     movimiento.save()
     

@@ -7,7 +7,7 @@ from SistemaVentas.models.factura import Factura
 
 class Movimiento(models.Model):
     """Cantidad de dinero involucrado en un movimiento de caja"""
-    cantidad = models.DecimalField(max_digits=9, decimal_places=3)
+    cantidad = models.FloatField()
     
     def __unicode__(self):
         return "Mov "+str(self.id)
@@ -31,7 +31,7 @@ class MovimientoVentas(Movimiento):
         return {
                     'cantidad' : self.cantidad,
                     'tipo'     : self.tipo,
-                    'factura'  : self.factura
+                    'factura'  : self.factura.resumen()
                 }
     
     class Meta:
@@ -55,10 +55,10 @@ class MovimientoCaja(Movimiento):
 
     def resumen(self):
         return {
-                    'cantidad' : self.cantidad,
-                    'tipo'     : self.tipo,
-                    'descripcion'  : self.descripcion,
-                    'fecha'  : self.fecha
+                    'cantidad'      : self.cantidad,
+                    'tipo'          : self.tipo,
+                    'descripcion'   : self.descripcion,
+                    'fecha'         : self.fecha.isoformat()
                 }
 
     class Meta:

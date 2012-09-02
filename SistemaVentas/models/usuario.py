@@ -15,7 +15,7 @@ class Usuario(models.Model):
     nombre   = models.CharField(max_length=32)
     fecha    = models.DateTimeField('fecha de inscripcion')
     tipo     = models.CharField(max_length=1, choices=TIPOS)
-    saldo    = models.DecimalField(max_digits=9, decimal_places=2)
+    saldo    = models.FloatField()
     
     def saldo_str(self): return str(self.saldo).rstrip('0').rstrip('.')
     saldo_str.short_description = 'Saldo'
@@ -35,7 +35,7 @@ class Usuario(models.Model):
                     'cedula'     : self.cedula,
                     'carnet'     : self.carnet,
                     'nombre'     : self.nombre,
-                    'saldo'      : self.saldo
+                    'saldo'      : float(self.saldo)
                 }
 
     class Meta:

@@ -10,16 +10,16 @@ class CompraInventario(models.Model):
     producto = models.ForeignKey(Producto)
     cantidad = models.IntegerField()
     fecha    = models.DateTimeField('fecha de compra', unique = True)
-    costo    = models.DecimalField(max_digits=9, decimal_places=3, null=True)
+    costo    = models.FloatField(null=True)
     
     def __unicode__(self):
         return str(self.cantidad)+" "+str(self.producto)
 
     def resumen(self):
         return {
-                    'producto'  : self.producto,
-                    'cantidad'  : int(self.cantidad),
-                    'fecha'     : self.fecha,
+                    'producto'  : self.producto.resumen(),
+                    'cantidad'  : self.cantidad,
+                    'fecha'     : self.fecha.isoformat(),
                     'costo'     : float(self.costo)
                 }
 

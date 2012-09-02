@@ -21,10 +21,10 @@ class VentaProducto(models.Model):
 
     def resumen(self):
         return {
-                    'producto' : self.producto,
-                    'precio'   : self.precio(),
+                    'producto' : self.producto.resumen(),
+                    'precio'   : self.precio.resumen(),
                     'cantidad' : self.cantidad,
-                    'factura'  : self.factura
+                    'factura'  : self.factura.resumen()
                 }
 
     class Meta:

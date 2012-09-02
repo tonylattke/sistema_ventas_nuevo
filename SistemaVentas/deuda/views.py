@@ -26,17 +26,17 @@ def get(request):
 @transaction.commit_on_success
 @login_required(login_url='')
 def post(request):
-    productoAux = get_object_or_404(Producto, id = request.GET["producto"])
-    usuarioAux = get_object_or_404(Usuario, cedula = request.GET["usuario"])
+    productoAux = get_object_or_404(Producto, id = request.POST["producto"])
+    usuarioAux = get_object_or_404(Usuario, cedula = request.POST["usuario"])
     deuda = Deuda(
                         producto = productoAux, 
-                        cantidad = int(request.GET["cantidad"]),
+                        cantidad = request.POST["cantidad"],
                         usuario  = usuarioAux
                  )
 
     deuda.save()
 
-    productoAux.cantidad = productoAux.cantidad - int(request.GET["cantidad"])
+    productoAux.cantidad = productoAux.cantidad - int(request.POST["cantidad"])
     productoAux.save()
 
     return HttpResponse(simplejson.dumps( deuda.resumen()), content_type = 'application/javascript; charset=utf8')
@@ -48,11 +48,11 @@ def post(request):
 def put(request, id):
     deuda = get_object_or_404(Deuda, id=id)
     
-    if request.GET.has_key('cantidad'):
-        if int(request.GET["cantidad"]) < 1:
-            return delete(request, id)
-        if int(request.GET["cantidad"]) > 0:
-            deuda.cantidad = int(request.GET["cantidad"])
+    if request.POST.has_key('cantidad'):
+        if int(request.POST["cantidad"]) < 1:
+            return error
+        if int(request.POST["cantidad"]) > 0:
+            deuda.cantidad = int(request.POST["cantidad"])
     
     deuda.save()
     

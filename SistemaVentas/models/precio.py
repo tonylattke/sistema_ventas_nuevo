@@ -8,7 +8,7 @@ from SistemaVentas.models.producto import Producto
 class Precio(models.Model):
     """Precio de un producto en un determinado momento"""
     producto = models.ForeignKey(Producto)
-    valor    = models.DecimalField(max_digits=9, decimal_places=3)
+    valor    = models.FloatField()
     fecha    = models.DateTimeField('fecha de validez', unique = True)
     
     def __unicode__(self):
@@ -16,9 +16,9 @@ class Precio(models.Model):
 
     def resumen(self):
         return {
-                    'producto'  : self.producto,
+                    'producto'  : self.producto.resumen(),
                     'valor'     : float(self.valor),
-                    'fecha'     : self.fecha
+                    'fecha'     : self.fecha.isoformat()
                 }
     
     class Meta:

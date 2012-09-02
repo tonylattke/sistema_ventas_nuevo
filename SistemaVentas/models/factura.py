@@ -18,8 +18,9 @@ class Factura(models.Model):
 
     def resumen(self):
         return {
-                    'fecha'     : self.fecha,
-                    'usuario'     : self.usuario
+                    'id'        : self.id,
+                    'fecha'     : self.fecha.isoformat(),
+                    'usuario'   : self.usuario.resumen()
                 }
 
     class Meta:

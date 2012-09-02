@@ -4,7 +4,7 @@ from os.path import join, abspath, dirname
 PROJECT_ROOT = abspath(join(dirname(__file__),'..'))
 PUBLIC_DIR = join(PROJECT_ROOT, 'public')
 
-TIME_ZONE = 'America/Caracas' #America/Sartenejas/MYS
+TIME_ZONE = 'UTC' #America/Sartenejas/MYS
 LANGUAGE_CODE = 'es-ve'
 
 SITE_ID = 1
