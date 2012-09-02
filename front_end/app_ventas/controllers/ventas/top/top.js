@@ -16,14 +16,21 @@ $.Controller("ventana.ventas.Top",
 }, /** @Prototype */ {
     
     init : function() {
-        var self = this;
-        //Primeros 5 productos más vendidos:
-        Producto.findAll('', function(productos) {
-            self.element.html($.View(
-                CONTROLLERS + 'ventas/top/views/init.ejs',
-                productos.slice(0, 6)
-            ));
-        });
+        this._graficar();
+    },
+
+    //Si la lista cambia se vuelve a renderizar
+    '{LOCAL.Productos} add' : function(lista, evento) {
+        this._graficar();
+    },
+
+    //Privado:
+    _graficar : function() {
+        //Primeros 10 productos más vendidos:
+        this.element.html($.View(
+            CONTROLLERS + 'ventas/top/views/init.ejs',
+            LOCAL.Productos.slice(0, 10)
+        ));
     }
 });
 

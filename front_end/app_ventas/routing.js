@@ -6,23 +6,47 @@ steal(
     
     MODELS+'perfil.js',
 
+    LISTAS+'todas.js',
+
 function($) {
 
 $.Controller("Routing",
     /** @Static */ {
-        perfil : null
     }, /** @Prototype */ {
         
         init : function() {
-            Perfil.yo(
-                //Exito
-                function(perfil, raw) {
-                    Routing.perfil = perfil;
-                    $('body').area_perfil(perfil);
+
+            LOCAL = {
+                Productos         : new Producto.List(),
+                Clientes          : null,
+                MovimientosCaja   : null,
+                MovimientosVenta  : null,
+                ComprasInventario : null
+            };
+
+            //Cargando el cache local:
+            $.when(
+                Perfil.yo(),
+                LOCAL.Productos.findAll()
+                //Los que faltan...
+
+            ).then(
+                //Exito:
+                //http://images3.wikia.nocookie.net/es.warhammer40k/images/a/ab/Exito_meme.jpg
+                function(perfil, productos /* los que faltan */) {
+                    //Perfil:
+                    LOCAL.Perfil = perfil[0];
+                    $('body').area_perfil( LOCAL.Perfil );
+
+                    //Productos:
+                    //Clientes:
+
+                    //Los que faltan...
                 },
-                //Error
+                //Error:
                 error
             );
+    
         },
 
         //Eventos de DOM:
@@ -31,6 +55,7 @@ $.Controller("Routing",
         },
 
         '#menu li click' : function(el, ev) {
+            //El elemento li en el id tiene el nombre de la ventana a abrir
             $.route.attr('ventana', el.attr('id'));
         },
 
@@ -41,6 +66,8 @@ $.Controller("Routing",
         },
 
         "/:ventana route" : function(data) {
+            //Se siguio la convencion de plugin de controlador ventana_<nombre>
+            // para automatizar este proceso.
             PAGE['ventana_'+data.ventana]();
         }
         

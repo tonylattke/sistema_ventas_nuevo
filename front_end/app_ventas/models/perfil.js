@@ -14,7 +14,7 @@ $.Model('Perfil',
     },
 
     yo : function(success, error) {
-        $.ajax('/perfil/get/', {
+        return $.ajax('/perfil/get/', {
             data   : {},
             success: success,
             error  : error,

@@ -4,6 +4,8 @@ steal(
     'jquery/controller',
     'jquery/controller/view',
     'jquery/view/ejs',
+
+
 function($) {
     ///// VARIABLES GLOBALES /////
 
@@ -18,6 +20,17 @@ function($) {
 
     /** Area donde se renderizaran las pantallas **/
     PAGE = $('#page');
+
+    //Modelos y Listas de modelos guardados en el cache local:
+    LOCAL = {
+        /** Solo referencial, se inicializan en routing. */
+        Perfil            : null,
+        Productos         : null,
+        Clientes          : null,
+        MovimientosCaja   : null,
+        MovimientosVenta  : null,
+        ComprasInventario : null
+    };
 
     //Mejorar
     error = function(xhr, texto, error) { alert("Error:"+text+", "+error); console.log(xhr); };

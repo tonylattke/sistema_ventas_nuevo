@@ -5,7 +5,7 @@
     <% if(this.length > 0) { %>
 
         <div class = "ListaProductosHorizontal">
-            <% this.forEach(function(producto, i) { %>
+            <% this.each(function(index, producto) { %>
                 <%== $.View('//'+CONTROLLERS + 'ventas/top/views/producto.ejs', producto )%>
             <% }); %>
         </div>
