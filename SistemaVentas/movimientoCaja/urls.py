@@ -2,9 +2,9 @@ from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 
 
-urlpatterns = patterns('',
-    url(r'^get/$'            , 'SistemaVentas.movimientoCaja.views.get'),
-    url(r'^post/$'           , 'SistemaVentas.movimientoCaja.views.post'),
-    url(r'^put/(?P<id>\d+)$' , 'SistemaVentas.movimientoCaja.views.put'),
-    url(r'^delete/(?P<id>\d+)$' , 'SistemaVentas.movimientoCaja.views.delete'),
+urlpatterns = patterns('SistemaVentas.movimientoCaja.views',
+    url(r'^get/$'               , 'get'     , name='obtenerMovimientosCaja'),
+    url(r'^post/$'              , 'post'    , name='CrearMovimientoCaja'),
+    url(r'^put/(?P<id>\d+)$'    , 'put'     , name='actualizarMovimientoCaja'),
+    url(r'^delete/(?P<id>\d+)$' , 'delete'  , name='eliminarMovimientoCaja'),
 )
