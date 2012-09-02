@@ -28,6 +28,9 @@ div.Producto {
     -webkit-border-radius: 4px;
     border-radius: 4px;
     cursor: pointer;
+
+    animation:prueba 0.5s;
+    -webkit-animation:prueba 0.5s; /* Chrome10+,Safari5.1+ */
 }
 
 div.Producto:hover {
