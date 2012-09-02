@@ -13,6 +13,9 @@ function($) {
     /** Direccion a los modelos **/
     MODELS = 'app_ventas/models/';
 
+    /** Direccion de las listas **/
+    LISTAS = 'app_ventas/listas/';
+
     /** Area donde se renderizaran las pantallas **/
     PAGE = $('#page');
 
