@@ -60,6 +60,7 @@ class Producto(models.Model):
 
     def resumen(self):
         return {
+                    'id'         : self.id,
                     'nombre'     : self.nombre,
                     'precio'     : self.precio_valor(),
                     'inventario' : self.cantidad,
