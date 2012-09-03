@@ -1,6 +1,5 @@
-.user_profile {
-    position: absolute;
-    right   : 30px;
-    top     : 5px;
-    color   : white;
+#user_profile {
+	letter-spacing: -1px;
+	font-size: 20px;
+	color: white;
 }
