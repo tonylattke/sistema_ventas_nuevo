@@ -3,6 +3,7 @@ steal(
 
     CONTROLLERS+'ventas/ventas',
     CONTROLLERS+'inventario/inventario',
+    CONTROLLERS+'movimientos/movimientos',
     CONTROLLERS+'area_perfil',
     
     MODELS+'perfil.js',
@@ -37,7 +38,7 @@ $.Controller("Routing",
                 function(perfil, productos /* los que faltan */) {
                     //Perfil:
                     LOCAL.Perfil = perfil[0];
-                    $('body').area_perfil( LOCAL.Perfil );
+                    $("#user_profile").area_perfil( LOCAL.Perfil );
 
                     //Productos:
                     //Clientes:
@@ -67,6 +68,10 @@ $.Controller("Routing",
         },
 
         "/:ventana route" : function(data) {
+            //Se destruye el controlador anterior.
+            var controller = PAGE.controller();
+            if(controller) controller.destroy();
+            
             //Se siguio la convencion de plugin de controlador ventana_<nombre>
             // para automatizar este proceso.
             PAGE['ventana_'+data.ventana]();

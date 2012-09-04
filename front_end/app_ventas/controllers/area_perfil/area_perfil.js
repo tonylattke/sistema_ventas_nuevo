@@ -14,12 +14,11 @@ $.Controller("Area.Perfil",
 
 }, /** @Prototype */ {
     
-    
-    
     init : function(el, perfil) {
-        $("#user_profile").html(
-        	$.View(CONTROLLERS + 'area_perfil/views/init.ejs',
-					perfil));
+        this.element.html($.View(
+            CONTROLLERS + 'area_perfil/views/init.ejs',
+            perfil
+        ));
     }
 });
 
