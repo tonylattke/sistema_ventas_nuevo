@@ -2,6 +2,7 @@ steal(
     'jquery/controller/route',
 
     CONTROLLERS+'ventas/ventas',
+    CONTROLLERS+'movimientos/movimientos',
     CONTROLLERS+'area_perfil',
     
     MODELS+'perfil.js',
@@ -66,6 +67,10 @@ $.Controller("Routing",
         },
 
         "/:ventana route" : function(data) {
+            //Se destruye el controlador anterior.
+            var controller = PAGE.controller();
+            if(controller) controller.destroy();
+            
             //Se siguio la convencion de plugin de controlador ventana_<nombre>
             // para automatizar este proceso.
             PAGE['ventana_'+data.ventana]();
