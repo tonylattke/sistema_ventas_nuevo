@@ -1,0 +1,6 @@
+#panel_izquierdo {
+    float:left;
+    width: 250px;
+    min-height:440px;
+    margin: 5px 0 5px 0;
+}
