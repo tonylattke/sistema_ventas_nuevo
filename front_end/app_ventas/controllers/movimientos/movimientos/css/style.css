@@ -1,6 +1,14 @@
+@-webkit-keyframes prueba_dos {/* Safari and Chrome */
+    from {min-height:0; max-height:0;}
+    to {min-height:440px; max-height:800px;}
+}
+
 #panel_izquierdo {
     float:left;
     width: 250px;
     min-height:440px;
     margin: 5px 0 5px 0;
+    overflow: hidden;
+
+    -webkit-animation: prueba_dos 1s; /* Chrome10+,Safari5.1+ */
 }
