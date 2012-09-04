@@ -1,0 +1,15 @@
+.titulo {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+#div_nuevo_producto {
+    margin-top: 5px;
+    margin-left: 4px;
+    font-size: 15px;
+    text-align: left;
+}
+
+#examinar_ruta_imagen{
+    width: 120px;
+}

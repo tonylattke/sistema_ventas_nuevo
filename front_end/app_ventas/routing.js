@@ -2,6 +2,7 @@ steal(
     'jquery/controller/route',
 
     CONTROLLERS+'ventas/ventas',
+    CONTROLLERS+'inventario/inventario',
     CONTROLLERS+'area_perfil',
     
     MODELS+'perfil.js',
