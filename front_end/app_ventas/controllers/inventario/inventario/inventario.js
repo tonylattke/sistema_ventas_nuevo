@@ -1,6 +1,7 @@
 steal(
     MODELS+'producto.js',
-    CONTROLLERS+'inventario/producto_nuevo'
+    CONTROLLERS+'panel_lateral',
+    CONTROLLERS+'inventario/listado_productos'
 
 ).then(
     './css/style.css',
@@ -16,8 +17,15 @@ $.Controller("ventana.Inventario",
     
     init : function() {
         this.element.html($.View(CONTROLLERS + 'inventario/inventario/views/init.ejs'));
+        
+        this.panel = new PanelLateral($("#panel_izquierdo"));
 
-        //$("#sub_panel_producto_nuevo").producto_nuevo();
+        this.panel.agregar_titulo("Lista de Productos");
+
+        this.panel.agregar_boton("Añadir compra de inventario", function() { alert("quieres añadir compra de inventario"); });
+        this.panel.agregar_boton("Modificar precio", function() { alert("quieres Modificar precio"); });
+		
+		$("#area_listado").inventario_listado_productos();
     }
 });
 
