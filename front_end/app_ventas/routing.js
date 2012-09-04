@@ -36,7 +36,7 @@ $.Controller("Routing",
                 function(perfil, productos /* los que faltan */) {
                     //Perfil:
                     LOCAL.Perfil = perfil[0];
-                    $('body').area_perfil( LOCAL.Perfil );
+                    $("#user_profile").area_perfil( LOCAL.Perfil );
 
                     //Productos:
                     //Clientes:
