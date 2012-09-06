@@ -66,7 +66,8 @@ class Producto(models.Model):
                     'inventario' : self.cantidad,
                     'imagen'     : self.imagen.url,
                     'descripcion': self.descripcion,
-                    'proveedor'  : self.proveedor
+                    'proveedor'  : self.proveedor,
+                    'cantidad'   : self.cantidad,
                 }
 
     class Meta:

@@ -12,7 +12,8 @@ $.Model('Producto',
         inventario  : 'number',
         imagen      : 'string',
         descripcion : 'string',
-        proveedor   : 'string'
+        proveedor   : 'string',
+        cantidad    : 'number'
     },
     
     findAll : 'GET /producto/get/'
