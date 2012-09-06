@@ -1,7 +1,8 @@
 steal(
     MODELS+'producto.js',
     CONTROLLERS+'panel_lateral',
-    CONTROLLERS+'inventario/listado_productos',
+    CONTROLLERS+'contenido_lateral',
+    CONTROLLERS+'contenido_lateral/views/init.ejs',
     CONTROLLERS+'inventario/compra'
 
 ).then(
@@ -15,17 +16,18 @@ $.Controller("ventana.Inventario",
     pluginName : "ventana_inventario"
 
 }, /** @Prototype */ {
-    panel : null,
-    titulo: null,
-    ver_inventario: null,
-    ver_compra : null,
+    panel 				: null,
+    contenido			: null,
+    titulo				: null,
+	ver_inventario		: null,
+    ver_compra 			: null,
 
     init : function() {
         this.element.html($.View(CONTROLLERS + 'inventario/inventario/views/init.ejs'));
         
         this.panel = new PanelLateral($("#panel_izquierdo"));
-
-        this.titulo = this.panel.agregar_titulo("Cargando...");
+        
+		this.titulo = this.panel.agregar_titulo("Cargando...");
 
         this.ver_inventario = this.panel.agregar_boton("Ver Inventario", this.proxy('abrir_listado_productos'));
         this.ver_compra     = this.panel.agregar_boton("Añadir compra de inventario", this.proxy('abrir_compra'));
@@ -34,27 +36,33 @@ $.Controller("ventana.Inventario",
         this.abrir_listado_productos();
     },
 
-    //FIXME: Se esta repitiendo codigo, encapsular
-    abrir_listado_productos : function() {
+	abrir_menu : function(mostrar_aux, esconder_aux, texto) {
         var controller = $("#vista").controller();
         if(controller) controller.destroy();
         
-        this.titulo.text("Lista de Productos");
-        this.ver_inventario.hide();
-        this.ver_compra.show();
+        this.titulo.text(texto);
+        esconder_aux.hide();
+        mostrar_aux.show();
+   },
 
-        $("#vista").inventario_listado_productos();
+    abrir_listado_productos : function() {
+        
+        this.abrir_menu(this.ver_compra, this.ver_inventario, "Lista de Productos");
+        
+		$("#vista").html("");
+		this.contenido = new ContenidoLateral($("#vista"));
+		this.contenido.agregar_titulo("Lista de productos");
+		this.contenido.agregar_listado("inventario", LOCAL.Productos, ["imagen","nombre","proveedor","cantidad","precio"]);
+		
     },
 
     abrir_compra : function() {
-        var controller = $("#vista").controller();
-        if(controller) controller.destroy();
-
-        this.titulo.text("Compra de Inventario");
-        this.ver_inventario.show();
-        this.ver_compra.hide();
-
-        $("#vista").inventario_compra();
+        
+        this.abrir_menu(this.ver_inventario, this.ver_compra, "Lista de Productos");
+        
+		$("#vista").html("");
+		this.contenido = new ContenidoLateral($("#vista"));
+		this.contenido.agregar_titulo("Compra de productos");
     }
 });
 
