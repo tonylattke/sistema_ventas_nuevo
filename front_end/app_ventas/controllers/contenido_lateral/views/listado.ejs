@@ -1,34 +1,34 @@
 <!-- Recibe nombre, una lista de objetos y la lista de atributos a mostrar -->
 
 <div id="area_listado_<%= nombre %>">
-	<% if(objetos.length > 0) { %>
-	    <table>
-	        <tr>
-		        <% atributos.forEach( function(atributo, j) { %>
-		            <td class="columna_<%= atributo %>">
-		                <label>
-		                	<%= atributo.charAt(0).toUpperCase() + atributo.slice(1) %>
-		                </label>
-		            </td>
-		        <% }); %>
-	            <td class="columna">
-	                <label>
-	                    Operación
-	                </label>
-	            </td>
-	        </tr>
-	        <% objetos.each(function(index, elemento) { %>
-	            <%== $.View('//'+CONTROLLERS + 'contenido_lateral/views/elemento.ejs', 
-	            			{
-	            				elemento_render	: 	elemento,
-	            				atributos_render:	atributos,
-	        					indice			:	index
-	    					}
-	    				   )%>
-	        <% }); %>
-	    </table>
-	    
-	<% } else { %>
-	    <p> No hay elementos para mostrar </p>
-	<% } %>
+    <% if(objetos.length > 0) { %>
+        <table>
+            <tr>
+                <% atributos.forEach( function(atributo, j) { %>
+                    <td class="columna_<%= atributo %>">
+                        <label>
+                            <%= atributo.charAt(0).toUpperCase() + atributo.slice(1) %>
+                        </label>
+                    </td>
+                <% }); %>
+                <td class="columna">
+                    <label>
+                        Operación
+                    </label>
+                </td>
+            </tr>
+            <% objetos.each(function(index, elemento) { %>
+                <%== $.View('//'+CONTROLLERS + 'contenido_lateral/views/elemento.ejs', 
+                            {
+                                elemento_render    :     elemento,
+                                atributos_render:    atributos,
+                                indice            :    index
+                            }
+                           )%>
+            <% }); %>
+        </table>
+        
+    <% } else { %>
+        <p> No hay elementos para mostrar </p>
+    <% } %>
 </div>

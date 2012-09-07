@@ -1,5 +1,5 @@
 steal(
-	//MODELS+'producto.js'
+    //MODELS+'producto.js'
 ).then(
     './css/style.css',
     './views/init.ejs',
