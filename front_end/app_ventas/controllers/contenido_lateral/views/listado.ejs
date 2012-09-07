@@ -7,27 +7,7 @@
 		        <% atributos.forEach( function(atributo, j) { %>
 		            <td class="columna_<%= atributo %>">
 		                <label>
-		                	<% if (atributo == "imagen") { %>
-		                		Imagen
-	                		<% } else if (atributo == "nombre") { %>
-							    Nombre
-						    <% } else if (atributo == "proveedor") { %>
-						    	Proveedor
-			                <% } else if (atributo == "cantidad") { %>
-							    Cantidad
-			                <% } else if (atributo == "precio") { %>
-							    Precio
-						    <% } else if (atributo == "descripcion") { %>
-						    	Descripción
-					    	<% } else if (atributo == "cedula") { %>
-						    	Cédula
-					    	<% } else if (atributo == "saldo") { %>
-						    	Saldo
-					    	<% } else if (atributo == "carnet") { %>
-							    Carnet
-			                <% } else { %>
-							    <%= atributo %>
-							<% } %>
+		                	<%= atributo.charAt(0).toUpperCase() + atributo.slice(1) %>
 		                </label>
 		            </td>
 		        <% }); %>
@@ -35,14 +15,14 @@
 	                <label>
 	                    Operación
 	                </label>
-	            </td>   
+	            </td>
 	        </tr>
 	        <% objetos.each(function(index, elemento) { %>
 	            <%== $.View('//'+CONTROLLERS + 'contenido_lateral/views/elemento.ejs', 
 	            			{
 	            				elemento_render	: 	elemento,
 	            				atributos_render:	atributos,
-	        					color			:	index
+	        					indice			:	index
 	    					}
 	    				   )%>
 	        <% }); %>

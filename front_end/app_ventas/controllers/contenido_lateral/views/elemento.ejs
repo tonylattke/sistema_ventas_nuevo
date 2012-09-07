@@ -1,10 +1,13 @@
 <%# Recibe un objeto, la lista de atributos a mostrar y un numero que indica que posicion de la lista tiene %>
 
-<tr <%= elemento_render %> class="fondo_blanco"> <!-- TODO: hacer que color cambie dependiendo del numero que vino en color-->
+<tr <%= elemento_render %> class="fondo_<%= indice % 2 == 0? 'blanco': 'negro' %>">
     <% atributos_render.forEach( function(atributo, j) { %>
     	<td>
         	<% if(atributo == "imagen") { %>
-        		<img src="http://placehold.it/80.jpg&text=<%=elemento_render["nombre"]%>" alt="Imagen de <%=elemento_render["nombre"]%>" width="64px" height="64px">    
+        		<img
+                    src="http://placehold.it/80.jpg&text=<%=elemento_render["nombre"]%>" 
+                    alt="Imagen de <%=elemento_render["nombre"]%>"
+                    width="64px" height="64px">
             <% } else { %>
 				<label>
 				    <%= elemento_render[atributo] %>

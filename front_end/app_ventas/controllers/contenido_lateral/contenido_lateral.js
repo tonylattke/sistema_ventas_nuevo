@@ -2,6 +2,7 @@ steal(
     './css/style.css',
     './views/titulo.ejs',
     './views/listado.ejs',
+    './views/elemento.ejs',
 
 function($) {
 
@@ -12,7 +13,7 @@ $.Controller("ContenidoLateral",
 }, /** @Prototype */ {
     
     init : function() {
-    	this.element.html($.View(CONTROLLERS + 'contenido_lateral/views/init.ejs'));
+        //this.element.html($.View(CONTROLLERS + 'contenido_lateral/views/init.ejs'));
     },
 
     agregar_titulo : function(nombre) {
@@ -22,14 +23,14 @@ $.Controller("ContenidoLateral",
     },
 
     agregar_listado : function(nombre_div, lista_objetos, lista_atributos) {
-    	var listado = $( 
-    		$.View(CONTROLLERS + 'contenido_lateral/views/listado.ejs', 
-				   {
-				   	nombre		: nombre_div,
-				   	objetos		: lista_objetos,
-				   	atributos	: lista_atributos
-				   }
-				  ));
+        var listado = $(
+        $.View(CONTROLLERS + 'contenido_lateral/views/listado.ejs',
+               {
+                nombre      : nombre_div,
+                objetos     : lista_objetos,
+                atributos   : lista_atributos
+               }
+              ));
         this.element.append(listado);
         return listado;
     }
