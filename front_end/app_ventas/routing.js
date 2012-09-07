@@ -7,29 +7,26 @@ steal(
     CONTROLLERS+'area_perfil',
     
     MODELS+'perfil.js',
+    MODELS+'producto.js',
 
     LISTAS+'todas.js',
 
 function($) {
+
+
 
 $.Controller("Routing",
     /** @Static */ {
     }, /** @Prototype */ {
         
         init : function() {
-
-            LOCAL = {
-                Productos         : new Producto.List(),
-                Clientes          : null,
-                MovimientosCaja   : null,
-                MovimientosVenta  : null,
-                ComprasInventario : null
-            };
+            //Desabilitando el Routing hasta cargar los productos.
+            $.route.ready(false);
 
             //Cargando el cache local:
             $.when(
                 Perfil.yo(),
-                LOCAL.Productos.findAll()
+                Producto.findAll()
                 //Los que faltan...
 
             ).then(
@@ -41,9 +38,12 @@ $.Controller("Routing",
                     $("#user_profile").area_perfil( LOCAL.Perfil );
 
                     //Productos:
+                    LOCAL.Productos = productos[0];
                     //Clientes:
 
                     //Los que faltan...
+
+                    $.route.ready(true);
                 },
                 //Error:
                 error
