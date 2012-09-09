@@ -8,7 +8,7 @@
     height:330px;
 }
 
-div.BuscarProductos {
+.BuscarProductos {
     float: left;
     width: 296px;
     padding: 5px 5px 10px 5px;
@@ -28,8 +28,28 @@ div.BuscarProductos {
     border-radius: 6px;
 }
 
-div.BuscarProductos div.ListaProductosVertical {
+
+.BuscarProductos .ListaProductosVertical {
     max-height: 270px;
-    overflow: scroll;
-    overflow-x:hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+
+.ListaProductosVertical .producto {
+    text-align: left;
+}
+
+.ListaProductosVertical .producto *{
+    vertical-align: middle;
+    display       : inline-block;
+}
+
+.ListaProductosVertical .producto div label{
+    display: block;
+}
+
+
+
+
+

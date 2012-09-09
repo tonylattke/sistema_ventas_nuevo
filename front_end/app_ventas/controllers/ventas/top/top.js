@@ -4,7 +4,6 @@ steal(
     './css/style.css',
     './css/animacion.css',
     './views/init.ejs',
-    './views/producto.ejs',
 
 function($) {
 

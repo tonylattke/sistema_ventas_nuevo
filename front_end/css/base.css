@@ -10,7 +10,11 @@ body {
 	overflow-x:hidden;
 	//overflow-y:hidden;
 }
- 
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
 ::-webkit-scrollbar-button:vertical {
     background-color: white;
 }
@@ -31,7 +35,7 @@ body {
 ::-webkit-scrollbar-button:vertical:increment {
     //background-color: black;
     //border: 1px dashed blue;
-border: 1px solid #000;
+    border: 1px solid #000;
 }
  
 /* Place The scroll up button at the up */
@@ -97,6 +101,13 @@ input {
 input:focus {
     background-color: #fffebc;
     border: 2px solid #fefc5b;
+}
+
+input.buscar {
+    background      : url(/static/images/search_mini.png) top right no-repeat;
+    background-color: white;
+    padding-right   : 20px;
+    box-shadow      : inset 2px 2px 5px #ccc;
 }
 
 textarea {
@@ -345,4 +356,14 @@ a {
 	border:2px solid rgb(0, 0, 0);
 	color:rgb(240, 221, 55);
 	text-shadow:1px 1px 1px rgb(0, 0, 0);
+}
+
+
+.inseleccionable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

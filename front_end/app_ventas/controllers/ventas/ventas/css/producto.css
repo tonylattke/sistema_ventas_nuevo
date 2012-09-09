@@ -1,0 +1,54 @@
+.ventana_ventas .producto {
+    
+    background: #45484d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(top,  #45484d 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    
+    border: 1px solid black;
+    
+    border-radius: 4px;
+    
+    cursor: pointer;
+
+    /* Animaciones de prueba*/
+    animation         : prueba 0.5s; /* W3C */
+    -moz-animation    : prueba 0.5s; /* Firefox 4 */
+    -webkit-animation : prueba 0.5s; /* Chrome10+,Safari5.1+ */
+    -o-animation      : prueba 0.5s; /* Opera */
+    -ms-animation     : prueba 0.5s; /* IE10+ */
+
+    transition         : all 0.3s; /* W3C */
+    -moz-transition    : all 0.3s; /* Firefox 4 */
+    -webkit-transition : all 0.3s; /* Safari and Chrome */
+    -o-transition      : all 0.3s; /* Opera */
+    -ms-transition     : all 0.3s; /* IE10+ */
+}
+
+.ventana_ventas .producto:hover {
+    background: rgb(0,0,0); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0,0,0,1) 1%, rgba(79,60,0,1) 38%, rgba(232,170,0,1) 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,1) 1%,rgba(79,60,0,1) 38%,rgba(232,170,0,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0,0,0,1) 1%,rgba(79,60,0,1) 38%,rgba(232,170,0,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0,0,0,1) 1%,rgba(79,60,0,1) 38%,rgba(232,170,0,1) 100%); /* IE10+ */
+    background: linear-gradient(top, rgba(0,0,0,1) 1%,rgba(79,60,0,1) 38%,rgba(232,170,0,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#e8aa00',GradientType=0 ); /* IE6-9 */
+
+    padding : 8px;
+}
+
+.ventana_ventas .producto img {
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.ventana_ventas .producto div label{
+    display: block;
+}
+
+.ventana_ventas .producto.seleccionado {
+    box-shadow: inset 0px 0px 10px #fff100;
+}

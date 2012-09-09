@@ -5,7 +5,9 @@ steal(
 
 ).then(
     './css/style.css',
+    './css/producto.css',
     './views/init.ejs',
+    './views/producto.ejs',
 
 function($) {
 
