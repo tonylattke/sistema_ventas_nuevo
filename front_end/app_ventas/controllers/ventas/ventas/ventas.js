@@ -2,7 +2,8 @@ steal(
     MODELS+'producto.js',
     CONTROLLERS+'ventas/top',
     CONTROLLERS+'ventas/buscar_productos',
-    CONTROLLERS+'ventas/carrito'
+    CONTROLLERS+'ventas/carrito',
+    CONTROLLERS+'ventas/pago'
 
 ).then(
     './css/style.css',
@@ -29,6 +30,7 @@ $.Controller("ventana.Ventas",
         
         $("#top_ventas").ventas_top();
         $("#area_busqueda").ventas_buscar_productos();
+        $("#area_pago").ventas_pago();
     },
 
     /*

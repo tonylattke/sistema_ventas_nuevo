@@ -32,7 +32,7 @@ $.Controller("ventana.ventas.Carrito",
             venta = new VentaProducto(producto.attrs());
             venta.pedido = 0;
 
-            this.element.find('.compras').append(
+            this.element.find('.compras tbody').append(
                 $.View(CONTROLLERS + 'ventas/carrito/views/venta.ejs', venta)
             );
         }

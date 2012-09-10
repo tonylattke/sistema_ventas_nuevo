@@ -35,9 +35,19 @@
     overflow-x: hidden;
 }
 
-
 .ListaProductosVertical .producto {
     text-align: left;
+}
+
+.ListaProductosVertical .producto .nombre {
+    font-size: 16px;
+    white-space: nowrap;
+    width: 195px;
+    overflow-x: hidden;
+}
+
+.ListaProductosVertical .producto .precio {
+    font-size: 14px;
 }
 
 .ListaProductosVertical .producto *{
@@ -48,8 +58,3 @@
 .ListaProductosVertical .producto div label{
     display: block;
 }
-
-
-
-
-

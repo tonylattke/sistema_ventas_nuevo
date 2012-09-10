@@ -2,31 +2,36 @@
 /* Area de top de ventas */
 
 #top_ventas {
-    margin: 0px auto;
-    width: 1000px;
-    height:114px;
+    margin     : 0px auto;
+    width      : 1000px;
+    height     : 114px;
     padding-top: 1px;
 }
 
 .MasVendidos {
-    clear :both;
-    margin: 0px auto 10px auto;
+    clear     : both;
+    margin    : 0px auto 10px auto;
     text-align: center;
 }
 
 
 .ListaProductosHorizontal {
     text-align: center;
-    display: table;
-    margin: 3px auto;
+    display   : table;
+    margin    : 3px auto;
 }
 
 .ListaProductosHorizontal .producto {
-    float: left;
-    margin: 0px 10px;
-    padding: 2px 2px;
-    max-width: 90px;
-    min-width: 70px;
-    height: 100px;
-    overflow: hidden;
+    float    : left;
+    margin   : 0px 10px;
+    padding  : 2px 2px;
+    max-width: 72px;
+    min-width: 65px;
+    height   : 100px;
+    overflow : hidden;
+}
+
+.ListaProductosHorizontal .producto label {
+    white-space: nowrap;
+    overflow-x : hidden;
 }
