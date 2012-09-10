@@ -10,6 +10,8 @@ steal(
     MODELS+'producto.js',
 
     LISTAS+'todas.js',
+    
+    VIEWS +'todas.js',
 
 function($) {
 

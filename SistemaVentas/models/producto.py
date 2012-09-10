@@ -63,7 +63,6 @@ class Producto(models.Model):
                     'id'         : self.id,
                     'nombre'     : self.nombre,
                     'precio'     : self.precio_valor(),
-                    'inventario' : self.cantidad,
                     'imagen'     : self.imagen.url,
                     'descripcion': self.descripcion,
                     'proveedor'  : self.proveedor,

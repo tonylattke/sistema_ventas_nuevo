@@ -1,3 +1,33 @@
 <div id="top_ventas"></div>
 
 <div id="area_busqueda"></div>
+
+<div id="carrito"></div>
+
+
+<div id="area_botones_bottom">
+
+    <div id="area_boton_vender">
+        <div id="resumen_compra" 
+             title='Resumen de la compra:
+Uso:
+- Aquí se indica el precio total de la venta.
+- Si se presiona el boton "Vender" se efectua la venta.
+- Si se presiona "Alt + Enter" se efectua la venta.'>
+
+            <div class="boton_accion inseleccionable">
+                Vender
+            </div>
+            
+            <div class="resumen_resumen">
+                <label>Total: </label>
+                <label id="resumen_total">0</label>
+                <label>Bsf. </label>
+            </div>
+
+        </div>
+    </div>
+
+    <%== $.View(VIEWS + 'boton_ayuda.ejs')%>
+
+</div>

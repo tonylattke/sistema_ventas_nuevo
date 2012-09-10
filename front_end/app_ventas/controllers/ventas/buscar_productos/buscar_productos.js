@@ -30,14 +30,6 @@ $.Controller("ventana.ventas.BuscarProductos",
                 CONTROLLERS + 'ventas/buscar_productos/views/encontrados.ejs',
                 encontrados
             );
-    },
-
-    /*
-     * * Al hacer click en un producto este queda seleccionado.
-     */
-    ".producto click" : function(el, ev) {
-        this.element.find('.producto').removeClass('seleccionado');
-        el.toggleClass('seleccionado');
     }
 });
 

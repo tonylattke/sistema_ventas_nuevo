@@ -4,10 +4,10 @@ steal(
 function() {
    
 $.Model('Producto',
-{
+/** @Static */ {
     attributes  : {
         id          : 'number',
-        nombre      : 'string', 
+        nombre      : 'string',
         precio      : 'number',
         imagen      : 'string',
         descripcion : 'string',
@@ -16,7 +16,7 @@ $.Model('Producto',
     },
     
     findAll : 'GET /producto/get/'
-}, {
+}, /** @Prototype */ {
     
 });
 

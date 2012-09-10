@@ -29,7 +29,7 @@ $.Controller("ventana.ventas.Top",
         //Primeros 10 productos más vendidos:
         this.element.html($.View(
             CONTROLLERS + 'ventas/top/views/init.ejs',
-            LOCAL.Productos.slice(0, 10)
+            LOCAL.Productos.disponibles().slice(0, 10)
         ));
     }
 });

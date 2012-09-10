@@ -8,7 +8,7 @@ body {
     cursor: default;
 	overflow: auto;
 	overflow-x:hidden;
-	//overflow-y:hidden;
+	overflow-y:hidden;
 }
 
 ::-webkit-scrollbar {
@@ -133,6 +133,10 @@ h1{
 a {
     text-decoration: none;
     color: #B23C1C;
+}
+
+a:hover {
+    font-weight:900;
 }
 
 #wrapper {

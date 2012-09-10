@@ -1,41 +1,4 @@
 /* ------------------------------------------------------------------------------------ */
-/* Area de venta */
-
-#area_venta {
-    margin-right: 35px;
-    float: left;
-    width: 310px;
-    height:330px;
-}
-
-div.Compras {
-    float: left;
-    min-width: 30%;
-    max-height: 316px;
-    overflow:auto;
-    overflow-x:hidden;
-}
-
-div.Compras table{
-    width: 310px;
-    background: #45484d; /* Old browsers */
-    background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */
-    background: linear-gradient(top,  #45484d 0%,#000000 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-    padding: 2px 5px 0 5px;
-    border: 2px solid #424242;
-    -moz-border-radius:6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-
-}
-
-
-/* ------------------------------------------------------------------------------------ */
 /* Area de botones inferiores */
 #area_botones_bottom {
     float:right;
