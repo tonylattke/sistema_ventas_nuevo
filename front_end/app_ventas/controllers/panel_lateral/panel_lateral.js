@@ -3,6 +3,7 @@ steal(
     //'./views/init.ejs',
     './views/titulo.ejs',
     './views/boton.ejs',
+    './views/subpanel.ejs',
 
 function($) {
 
@@ -29,7 +30,14 @@ $.Controller("PanelLateral",
         return boton;
     },
 
-    agregar_subpanel : function() {}
+    agregar_subpanel : function(div_id) {
+    	var subp = $( $.View(CONTROLLERS + 'panel_lateral/views/subpanel.ejs', 
+    		{
+    			id_form	:div_id
+			}));
+        this.element.append(subp);
+        return subp;
+    }
 });
 
 });
