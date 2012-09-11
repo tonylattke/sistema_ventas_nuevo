@@ -14,8 +14,8 @@ $.Controller("Formulario",
     init : function(titulo, id_form, t_a) {
         this.element.html($.View(CONTROLLERS + 'formulario/views/init.ejs',
     		{
-    			titulo_sub		: titulo,
-                id_formulario	: id_form,
+    			titulo_subsr	: titulo,
+                formulario_id	: id_form,
                 titulo_action	: t_a
 			}
         ));

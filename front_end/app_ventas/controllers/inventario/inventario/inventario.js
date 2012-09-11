@@ -37,7 +37,7 @@ $.Controller("ventana.Inventario",
 
 		this.producto_nuevo_form = new Formulario($("#producto_nuevo_formulario"),"Anadir nuevo producto","form_nuevo_producto","accion_agregar_nuevo");
 		this.producto_nuevo_form.agregar_texto_simple_limpio("Prueba","prueba",25,{});
-		this.producto_nuevo_form.terminar();
+		//this.producto_nuevo_form.terminar();
 
         this.ver_inventario = this.panel.agregar_boton("Ver Inventario", this.proxy('abrir_listado_productos'))[0];
         this.ver_compra     = this.panel.agregar_boton("Añadir compra de inventario", this.proxy('abrir_compra'))[0];
