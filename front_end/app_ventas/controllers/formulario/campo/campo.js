@@ -1,5 +1,7 @@
 steal(
 	'./views/init.ejs',
+	'./views/terminar.ejs',
+	'./views/texto_simple_limpio.ejs',
 
 function($) {
 
@@ -10,33 +12,32 @@ $.Controller("Campo",
 }, /** @Prototype */ {
     
     init : function() {
-        this.element.html($.View(CONTROLLERS + 'campo/campo/views/init.ejs',{}));
+        this.element.html($.View(CONTROLLERS + 'formulario/campo/views/init.ejs',{}));
     },
     
     terminar : function() {
         var boton = $(
-        $.View(CONTROLLERS + 'campo/views/boton_realizar.ejs',
+        $.View(CONTROLLERS + 'formulario/campo/views/terminar.ejs',
                {
-				                
+				          
                }
               ));
         this.element.append(boton);
         return boton;
    	},
     
-    agregar_texto_simple_limpio : function(descripcion, parametro_id, tam, arreglo_validaciones) {
+    agregar_texto_simple_limpio : function(descripcion, parametro_id, arreglo_validaciones) {
         var texto = $(
-        $.View(CONTROLLERS + 'campo/views/texto_simple_limpio.ejs',
+        $.View(CONTROLLERS + 'formulario/campo/views/texto_simple_limpio.ejs',
                {
                 titulo		: descripcion,
                 name_id		: parametro_id,
-                tam_campo	: tam,
                 validaciones: arreglo_validaciones
                }
               ));
         this.element.append(texto);
         return texto;
-    }	
+    }
 });
 
 });
