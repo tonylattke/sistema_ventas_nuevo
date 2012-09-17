@@ -21,7 +21,7 @@ $.Controller("ventana.ventas.BuscarProductos",
     },
 
     /*
-     * * Al precionar en la barra de busqueda una tecla se actualizan los resultados.
+     * * Al precionar una tecla en la barra de busqueda se actualizan los resultados.
      */
     "input keyup" : function(input, ev) {
         var encontrados = LOCAL.Productos.buscar(input.val()).disponibles();

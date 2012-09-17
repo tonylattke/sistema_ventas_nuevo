@@ -8,6 +8,7 @@ steal(
     
     MODELS+'perfil.js',
     MODELS+'producto.js',
+    MODELS+'cliente.js',
 
     LISTAS+'todas.js',
     
@@ -28,13 +29,14 @@ $.Controller("Routing",
             //Cargando el cache local:
             $.when(
                 Perfil.yo(),
-                Producto.findAll()
+                Producto.findAll(),
+                Cliente.findAll()
                 //Los que faltan...
 
             ).then(
                 //Exito:
                 //http://images3.wikia.nocookie.net/es.warhammer40k/images/a/ab/Exito_meme.jpg
-                function(perfil, productos /* los que faltan */) {
+                function(perfil, productos, clientes /* los que faltan */) {
                     //Perfil:
                     LOCAL.Perfil = perfil[0];
                     $("#user_profile").area_perfil( LOCAL.Perfil );
@@ -42,7 +44,7 @@ $.Controller("Routing",
                     //Productos:
                     LOCAL.Productos = productos[0];
                     //Clientes:
-
+                    LOCAL.Clientes = clientes[0];
                     //Los que faltan...
 
                     $.route.ready(true);

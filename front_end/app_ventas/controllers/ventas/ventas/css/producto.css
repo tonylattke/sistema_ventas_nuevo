@@ -28,6 +28,16 @@
     -ms-transition     : all 0.3s; /* IE10+ */
 }
 
+@keyframes prueba {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@-webkit-keyframes prueba {/* Safari and Chrome */
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
 .ventana_ventas .producto:hover {
     background: rgb(0,0,0); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(0,0,0,1) 1%, rgba(79,60,0,1) 38%, rgba(232,170,0,1) 100%); /* FF3.6+ */

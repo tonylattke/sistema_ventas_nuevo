@@ -2,5 +2,6 @@
  * todas las listas de un solo golpe.
  */
 steal(
-    './productos.js'
+    './productos.js',
+    './clientes.js'
 );

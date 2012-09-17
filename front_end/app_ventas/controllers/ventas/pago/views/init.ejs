@@ -1,12 +1,73 @@
-<div class="Clientes">
-    <label class="titulo"> Titulo A</label>
-    Cliente A
-<div>
+<div class="clientes"
+     title ='Area de informacion del cliente y de pago.
+Uso:
+- Con "Alt + C" enfoncas el campo de texto.
+- Introduces parte de la cedula de identidad de un cliente.
+- Si se encuentra el cliente apareceran sus datos.
+- Si el cliente no se puede encontrar aparecera un campo para introducir un nuevo cliente al sistema.
+- Para más informacion sobre las otras secciones mueve el mouse hacia abajo hasta el area que deseas conocer.'>
 
-<div class="configuracion_pago">
-    <label class="titulo"> Titulo B</label>
-    <table>
-        <tr>Fila 1</tr>
-        <tr><label>Fila 2</label></tr>
+    <label class="titulo">Cliente:</label>
+    <br/>
+
+    <!-- ************** BUSQUEDA DE CLIENTES ************** -->
+    <label>Cedula</label>
+    <input type="text" class="buscar seleccionado" autocomplete="off"/>
+
+    <%== $.View(CONTROLLERS + 'ventas/pago/views/cliente.ejs') %>
+    <%== $.View(CONTROLLERS + 'ventas/pago/views/registrar_cliente.ejs') %>
+</div>
+
+<div class="configuracion_pago" 
+     title='Aquí se configura como se hace el pago.
+Si el cliente da más dinero de lo que cuestan sus productos este puede elegir "Recargar" su saldo con el dinero restante o dar ese dinero para donacion.
+Si da menos dinero entonces se le deducirá del saldo, si el usuario no tiene saldo suficiente el monto aparecerá en negativo y la venta no podra ser efectuada.'>
+    
+    <label class="titulo">
+        Configuración de Pago:
+    </label>
+    <br/>
+
+    <!-- ****************** CONF DE PAGO ***************** -->
+    <table border="0">
+        <tr>
+            <td>
+                <label>Efectivo:</label>
+            </td>
+            <td>
+                <input id="efectivo" type="text" size="5" value="0"/>
+                <label>Bsf.</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Saldo:</label>
+            </td>
+            <td>
+                <label id="saldo">0</label>
+                <label> Bsf.</label>
+            </td>
+        </tr>
+        <!--tr>
+            <td>
+                <input id="recarga_rbt" type="radio" name="pago" value="Recarga" checked="True"/>
+                <label>Recarga:</label>
+            </td>
+            <td>
+                <label id="recarga_lbl" >0</label>
+                <label> Bsf.</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="donacion_rbt" type="radio" name="pago" value="Donacion" /> 
+                <label>Donación:</label>
+            </td>
+            <td>
+                <label id="donacion_lbl" >0</label>
+                <label> Bsf</label>
+            </td>
+        </tr-->
     </table>
+
 </div>
