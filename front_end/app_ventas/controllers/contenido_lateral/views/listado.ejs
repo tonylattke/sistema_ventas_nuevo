@@ -20,9 +20,9 @@
             <% objetos.each(function(index, elemento) { %>
                 <%== $.View('//'+CONTROLLERS + 'contenido_lateral/views/elemento.ejs', 
                             {
-                                elemento_render    :     elemento,
-                                atributos_render:    atributos,
-                                indice            :    index
+                                elemento_render	: elemento,
+                                atributos_render: atributos,
+                                indice          : index
                             }
                            )%>
             <% }); %>

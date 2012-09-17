@@ -1,11 +1,18 @@
 <!-- Recibe:  -->
 <!-- titulo 		- Corresponde a la descripcion que se usara para el texto -->
 <!-- name_id 		- Corresponde al name del campo de texto -->
+<!-- opciones		- Corresponde a todos los valores de las opciones -->
 <!-- validaciones 	- Es el arreglo de todas la validaciones que se hacen al campo -->
 <div id="titulo_<%=name_id%>" class="titulo_campo">
 	<%=titulo%>
 </div>
 <div id="espaciado_<%=name_id%>">
 </div>
-<input type="text" name="<%=name_id%>"/> 
+<select name="<%=name_id%>">
+	<% opciones.each( function(opcion, i) { %>
+	    <option value="<%=opcion[valor]%>">
+	    	<%=opcion[texto]%>
+    	</option>
+    <% }); %>
+</select>
 	
