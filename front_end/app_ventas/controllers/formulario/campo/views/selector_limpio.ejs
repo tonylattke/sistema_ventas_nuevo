@@ -9,9 +9,9 @@
 <div id="espaciado_<%=name_id%>">
 </div>
 <select name="<%=name_id%>">
-	<% opciones.each( function(opcion, i) { %>
-	    <option value="<%=opcion[valor]%>">
-	    	<%=opcion[texto]%>
+	<% opciones.forEach( function(opcion, i) { %>
+	    <option value="<%=opcion["valor"]%>">
+	    	<%=opcion["texto"]%>
     	</option>
     <% }); %>
 </select>

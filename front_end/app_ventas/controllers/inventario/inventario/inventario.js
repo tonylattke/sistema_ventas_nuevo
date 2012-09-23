@@ -49,18 +49,18 @@ $.Controller("ventana.Inventario",
 		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Prueba","prueba",{});
 		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Pruebasas","prueba2",{});
 		this.producto_nuevo_form_campos.agregar_busqueda_archivo_limpio("Prs","prueba3",{});
-		
-		var opciones_precio =  {
-									opcion1: {
-										valor: "Z",
-										texto: "Egreso"
+							
+		var opciones_precio =  [
+									{
+										"valor": "Z",
+										"texto": "Egreso"
 									},
-									opcion2: {
-										valor: "I",
-										texto: "Ingreso"
+									{
+										"valor": "I",
+										"texto": "Ingreso"
 									}
-								}
-		//this.producto_nuevo_form_campos.agregar_selector_limpio("motivo","prueba4", opciones_precio, {});
+								];
+		this.producto_nuevo_form_campos.agregar_selector_limpio("motivo","prueba4", opciones_precio, {});
 		
 		this.producto_nuevo_form_campos.terminar();
 

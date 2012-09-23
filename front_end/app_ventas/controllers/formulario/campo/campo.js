@@ -42,7 +42,7 @@ $.Controller("Campo",
     },
     
     agregar_busqueda_archivo_limpio : function(descripcion, parametro_id, arreglo_validaciones) {
-        var texto = $(
+        var archivo = $(
         $.View(CONTROLLERS + 'formulario/campo/views/busqueda_archivo_limpio.ejs',
                {
                 titulo		: descripcion,
@@ -50,12 +50,12 @@ $.Controller("Campo",
                 validaciones: arreglo_validaciones
                }
               ));
-        this.element.append(texto);
-        return texto;
+        this.element.append(archivo);
+        return archivo;
     },
     
     agregar_selector_limpio : function(descripcion, parametro_id, diccionario_opciones, arreglo_validaciones) {
-        var texto = $(
+        var selector = $(
         $.View(CONTROLLERS + 'formulario/campo/views/selector_limpio.ejs',
                {
                 titulo		: descripcion,
@@ -64,8 +64,8 @@ $.Controller("Campo",
                 validaciones: arreglo_validaciones
                }
               ));
-        this.element.append(texto);
-        return texto;
+        this.element.append(selector);
+        return selector;
     }
 });
 
