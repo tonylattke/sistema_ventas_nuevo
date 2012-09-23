@@ -1,9 +1,10 @@
 steal(
 	'./views/init.ejs',
-	'./views/terminar.ejs',
+	'./views/accion.ejs',
 	'./views/texto_simple_limpio.ejs',
 	'./views/busqueda_archivo_limpio.ejs',
 	'./views/selector_limpio.ejs',
+	'./views/area_texto_limpio.ejs',
 
 function($) {
 
@@ -17,11 +18,11 @@ $.Controller("Campo",
         this.element.html($.View(CONTROLLERS + 'formulario/campo/views/init.ejs',{}));
     },
     
-    terminar : function() {
+    agregar_accion : function(nombre_accion) {
         var boton = $(
-        $.View(CONTROLLERS + 'formulario/campo/views/terminar.ejs',
+        $.View(CONTROLLERS + 'formulario/campo/views/accion.ejs',
                {
-				          
+				titulo_accion	: nombre_accion
                }
               ));
         this.element.append(boton);
@@ -39,6 +40,21 @@ $.Controller("Campo",
               ));
         this.element.append(texto);
         return texto;
+    },
+    
+    agregar_area_texto_limpio : function(descripcion, parametro_id, filas_t, columnas_t, arreglo_validaciones) {
+        var area_texto = $(
+        $.View(CONTROLLERS + 'formulario/campo/views/area_texto_limpio.ejs',
+               {
+                titulo		: descripcion,
+                name_id		: parametro_id,
+                filas		: filas_t,
+                columnas	: columnas_t,
+                validaciones: arreglo_validaciones
+               }
+              ));
+        this.element.append(area_texto);
+        return area_texto;
     },
     
     agregar_busqueda_archivo_limpio : function(descripcion, parametro_id, arreglo_validaciones) {

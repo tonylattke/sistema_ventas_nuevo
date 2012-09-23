@@ -46,9 +46,12 @@ $.Controller("ventana.Inventario",
 		this.producto_nuevo_form.iniciar("form_nuevo_producto","accion_agregar_nuevo");
 		
 		this.producto_nuevo_form_campos = new Campo($("#form_nuevo_producto"));
-		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Prueba","prueba",{});
-		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Pruebasas","prueba2",{});
-		this.producto_nuevo_form_campos.agregar_busqueda_archivo_limpio("Prs","prueba3",{});
+		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Nombre","nombre",{});
+		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Cantidad","cantidad",{});
+		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Precio","precio",{});
+		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Descripción","descripcion",{});
+		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Proveedor","proveedor",{});
+		this.producto_nuevo_form_campos.agregar_busqueda_archivo_limpio("imagen","ruta_imagen",{});
 							
 		var opciones_precio =  [
 									{
@@ -60,9 +63,9 @@ $.Controller("ventana.Inventario",
 										"texto": "Ingreso"
 									}
 								];
-		this.producto_nuevo_form_campos.agregar_selector_limpio("motivo","prueba4", opciones_precio, {});
-		
-		this.producto_nuevo_form_campos.terminar();
+		this.producto_nuevo_form_campos.agregar_selector_limpio("tipo","prueba4", opciones_precio, {});
+		this.producto_nuevo_form_campos.agregar_area_texto_limpio("motivo","prueba5",3,27,{});
+		this.producto_nuevo_form_campos.agregar_accion("Agregar");
 
         this.ver_inventario = this.panel.agregar_boton("Ver Inventario", this.proxy('abrir_listado_productos'))[0];
         this.ver_compra     = this.panel.agregar_boton("Añadir compra de inventario", this.proxy('abrir_compra'))[0];
