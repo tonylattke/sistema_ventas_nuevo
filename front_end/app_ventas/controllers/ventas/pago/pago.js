@@ -43,7 +43,24 @@ $.Controller("ventana.ventas.Pago",
             this.element.find('.registrar_cliente').removeClass('escondido');
             this.element.find('.cliente').addClass('escondido');
         }
+    },
+
+
+    usuario : function() {
+        var cliente_dom = this.element.find('.cliente'),
+            cliente = null;
+
+        if(cliente_dom.hasClass('escondido')) {
+            cliente = cliente_dom.model();
+        } else {
+            //TODO: Registrar usuarios
+            cliente = new Cliente({id:0, nombre: 'Anonimo'});
+        }
+
+        return cliente;
     }
+
+    //TODO: Verificar el pago con saldo a anonimo
 });
 
 

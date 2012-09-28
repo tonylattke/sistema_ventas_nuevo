@@ -1,6 +1,7 @@
 steal(
     'init.js',
-
+    
+    'jquery/dom/cookie',
     'jquery/controller',
     'jquery/controller/view',
     'jquery/view/ejs',
@@ -36,7 +37,7 @@ function($) {
     };
 
     //Mejorar
-    error = function(xhr, texto, error) { alert("Error:"+text+", "+error); console.log(xhr); };
+    error = function(xhr, texto, error) { alert("Error:"+texto+", "+error); console.log(xhr); };
 
 })
 .then(
@@ -45,5 +46,14 @@ function($) {
 function($) {
 
     /** INICIALIZACION; **/
+    $.ajaxSetup({
+        //Las llamadas AJAX de ahora en adelante tienen que ser frescas:
+        cache : false,
+        //Necesario para el checkeo CSRF de Django
+        beforeSend : function(xhr, parms) {
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+        }
+    });
+
     new Routing(document.body);
 });

@@ -1,5 +1,6 @@
 steal(
-    MODELS+'venta_producto.js'
+    MODELS+'venta_producto.js',
+    MODELS+'movimiento_venta.js'
 
 ).then(
     './css/style.css',
@@ -13,7 +14,11 @@ function($) {
 
 $.Controller("ventana.ventas.Carrito",
 /** @Static */ {
-    pluginName : "ventas_carrito"
+    pluginName : "ventas_carrito",
+
+    eventos: {
+        ACTUALIZADO: 'ACTUALIZADO'
+    }
 
 }, /** @Prototype */ {
     
@@ -45,6 +50,28 @@ $.Controller("ventana.ventas.Carrito",
         return this.element.find('.compras tr').models(VentaProducto);
     },
 
+    movimientos : function() {
+        return [
+            new MovimientoVenta({
+                tipo : 'E', //Effectivo
+                cantidad: this.total()
+            })
+        ];
+    },
+
+    total : function() {
+        var total = 0;
+        this.productos().each(function(i, venta){
+            total += venta.precio * venta.pedido;
+        });
+        return total;
+    },
+
+    limpiar: function() {
+        this.productos().elements().remove();
+        this._actualizado();
+    },
+
     //Eventos de DOM:
     '.compras tr input change' : function(el, ev) {
         var pedido = Number( /[0-9]+/.exec(el.val()) ),
@@ -58,10 +85,11 @@ $.Controller("ventana.ventas.Carrito",
 
     '.compras tr button click' : function(el, ev) {
         el.closest('tr').remove();
+        this._actualizado();
     },
 
     'a click' : function(el, ev) {
-        this.productos().elements().remove();
+        this.limpiar();
     },
 
 
@@ -74,11 +102,18 @@ $.Controller("ventana.ventas.Carrito",
         } else {
             pedido = Math.min(pedido, venta.cantidad); //Cantidad se refiere al inventario del producto
             venta.pedido = pedido;
-            //Actualizando los campos de texto:
-            venta.elements(this.element).find('input').val(pedido);
+            //Actualizando los campos de texto y precio:
+            var els = venta.elements(this.element); 
+            els.find('input').val(pedido);
+            els.find('.precio').html(pedido * venta.precio + ' Bsf.');
         }
+        this._actualizado();
 
         return pedido;
+    },
+
+    _actualizado: function() {
+        $([this]).trigger(ventana.ventas.Carrito.eventos.ACTUALIZADO);
     }
 });
 
