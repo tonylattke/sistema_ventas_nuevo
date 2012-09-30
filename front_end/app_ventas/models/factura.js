@@ -21,7 +21,7 @@ $.Model('Factura',
 
         'Movimiento.models' : function(movimientos, type){
             return JSON.stringify(movimientos);
-        }
+        },
     },
 
     

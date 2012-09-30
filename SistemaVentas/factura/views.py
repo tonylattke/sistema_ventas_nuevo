@@ -25,6 +25,7 @@ def get(request):
 @transaction.commit_on_success
 @login_required(login_url='')
 def post(request):
+    """
     productos = literal_eval(request.POST["productos"])
     pago      = literal_eval(request.POST["pago"])
     tiempo = datetime.now()
@@ -78,9 +79,10 @@ def post(request):
         usr.saldo -= s
        
     usr.save()
-
+   
     return HttpResponse(simplejson.dumps( factura.resumen()), content_type = 'application/javascript; charset=utf8')
-
+     """
+    return HttpResponse('')
 
 
 @transaction.commit_on_success

@@ -50,26 +50,34 @@ $.Controller("ventana.Ventas",
      * El boton de vender
      */
     "#resumen_compra .boton_accion click" : function(el, ev) {
-        var area_pago =  $("#area_pago").controllers()[0],
+        var area_pago =  this.element.find("#area_pago").controllers()[0],
             cliente = area_pago.usuario(),
-            carrito = this.options.carrito[0];
+            carrito = this.options.carrito[0],
+            productos = carrito.productos(),
+            self = this;
 
-        factura = new Factura({
-            cliente     : cliente,
-            //TODO: enviar solo los ids y el pedido
-            ventas      : carrito.productos(),
-            movimientos : carrito.movimientos()
-        }).save(
-            //Exito:
-            function() {
-                alert('Venta realizada');
-                
-                this.options.carrito[0].limpiar();
-                //TODO: Agregar a lista de facturas
-            },
-            error
-        );
+        if(productos.length > 0) {
 
+            factura = new Factura({
+                cliente     : cliente,
+                //TODO: enviar solo los ids y el pedido
+                ventas      : carrito.productos(),
+                movimientos : carrito.movimientos()
+            }).save(
+                //Exito:
+                function() {
+                    alert('Venta realizada');
+                    
+                    self.options.carrito[0].limpiar();
+                    area_pago.limpiar();
+                    //TODO: Agregar a lista de facturas
+                },
+                error
+            );
+
+        } else {
+            alert('No hay productos en el carrito de compra');
+        }
 
     },
 
@@ -78,8 +86,12 @@ $.Controller("ventana.Ventas",
      * Entonces se actualiza el precio total.
      */
     "{carrito} ACTUALIZADO" : function(el, ev) {
-        var total = this.element.find('#resumen_total');
-        total.html(this.options.carrito[0].total());
+        var total     = this.options.carrito[0].total(),
+            total_dom = this.element.find('#resumen_total'),
+            area_pago = this.element.find("#area_pago").controllers()[0];
+        
+        area_pago.act_total(total);
+        total_dom.html(total);
     },
 });
 
