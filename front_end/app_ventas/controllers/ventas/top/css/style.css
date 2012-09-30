@@ -6,6 +6,7 @@
     width      : 1000px;
     height     : 114px;
     padding-top: 1px;
+    position   : relative;
 }
 
 .MasVendidos {
@@ -17,13 +18,12 @@
 
 .ListaProductosHorizontal {
     text-align: center;
-    display   : table;
     margin    : 3px auto;
 }
 
 .ListaProductosHorizontal .producto {
-    float    : left;
-    margin   : 0px 10px;
+    display  : inline-block;
+    margin   : 0px 5px;
     padding  : 2px 2px;
     max-width: 72px;
     min-width: 65px;

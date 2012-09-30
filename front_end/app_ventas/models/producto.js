@@ -15,9 +15,15 @@ $.Model('Producto',
         cantidad    : 'number'
     },
     
-    findAll : 'GET /producto/get/'
+    findAll : 'GET /producto/get/',
 }, /** @Prototype */ {
-    
+
+    //Cambia un atributo y fuerza el evento updated:
+    cambia_y_actualiza : function(attrs) {
+        this.attrs(attrs);
+        $([this]).trigger('updated', this);
+    }
+
 });
 
 }

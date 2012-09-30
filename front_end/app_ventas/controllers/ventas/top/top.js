@@ -19,8 +19,36 @@ $.Controller("ventana.ventas.Top",
     },
 
     //Si la lista cambia se vuelve a renderizar
-    '{LOCAL.Productos} add' : function(lista, evento) {
+    '{LOCAL.Productos} add' : function(lista, evento, nuevos_items) {
         this._graficar();
+    },
+
+    //Se verifica si algun producto se agoto
+    '{LOCAL.Productos} updated' : function(lista, evento, item) {
+        var cont_productos = this.element.find('.ListaProductosHorizontal');
+        //Agotamiento:
+        if(item.cantidad === 0) {
+            var productos = this.element.find('.producto').models();
+            productos.each(function() {
+                if(this.id === item.id) {
+                    var prod_dom = this.elements(cont_productos),
+                        remplazo = LOCAL.Productos.disponibles().slice(9, 10)[0];
+                    prod_dom.addClass('agotado');
+                    prod_dom.on('webkitTransitionEnd', function() {
+                        prod_dom.remove();
+
+                        
+                        if(remplazo) {
+                            cont_productos.append($.View(
+                                CONTROLLERS + 'ventas/ventas/views/producto.ejs',
+                                remplazo
+                            ));
+                        }
+                    });
+
+                }
+            });
+        }
     },
 
     //Privado:

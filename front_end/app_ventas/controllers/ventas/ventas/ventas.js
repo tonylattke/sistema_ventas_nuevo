@@ -51,6 +51,7 @@ $.Controller("ventana.Ventas",
      */
     "#resumen_compra .boton_accion click" : function(el, ev) {
         var area_pago =  this.element.find('#area_pago').controllers()[0],
+            area_busqueda = this.element.find('#area_busqueda').controllers()[0],
             cliente   = area_pago.cliente(),
             carrito   = this.options.carrito[0],
             productos = carrito.productos(),
@@ -83,6 +84,8 @@ $.Controller("ventana.Ventas",
                 function(factura) {
                     self.options.carrito[0].limpiar();
                     area_pago.limpiar();
+                    area_busqueda.limpiar();
+
 
                     /* Cuando se realiza una venta que actualizar todas las listas
                      * que se ven afectadas: reduccion de inventario, nueva factura,
@@ -91,7 +94,10 @@ $.Controller("ventana.Ventas",
                     LOCAL.Facturas.push(factura);
 
                     factura.ventas.each(function() {
-                        LOCAL.Productos.get(this.id)[0].cantidad -= this.pedido;
+                        LOCAL.Productos.get(this.id)[0]
+                            .cambia_y_actualiza({
+                                cantidad: this.cantidad - this.pedido
+                            });
                     });
 
                     if(nuevo_cliente) {
@@ -100,7 +106,7 @@ $.Controller("ventana.Ventas",
                         /* Se asume que el servidor (en caso de haber) ya le
                          * agrego el saldo y retornó el modelo con el saldo cambiado.
                          */
-                         
+
                     } else if(cliente.cedula !== 0) {
                         //Modificando el saldo del cliente
                         var l_cliente = LOCAL.Clientes.get(cliente.cedula)[0],

@@ -30,6 +30,11 @@ $.Controller("ventana.ventas.BuscarProductos",
                 CONTROLLERS + 'ventas/buscar_productos/views/encontrados.ejs',
                 encontrados
             );
+    },
+
+    limpiar : function() {
+        this.element.find('input').val('');
+        this.element.find("#prod_buscados").html('');
     }
 });
 
