@@ -58,7 +58,7 @@ $.Controller("ventana.Ventas",
 
         //Si se está registrando pero el usuario es Anonimo no se ha
         //finalizado correctamente el registro.
-        if(area_pago.registrando() && cliente.id === 0) {
+        if(area_pago.registrando() && cliente.cedula === 0) {
             alert(
                 'No ha finalizado correctamente el registro del cliente\n'+
                 'Corrija los errores o borre el campo de nombre para vender anonimamente'
@@ -68,6 +68,11 @@ $.Controller("ventana.Ventas",
 
         if(productos.length > 0 || area_pago.recarga() > 0) {
 
+            /* Para saber si es un nuevo cliente no podemos usar isNew() ya que
+             * el id del cliente es la cedula y esta ya está establecida.
+             */
+            var nuevo_cliente = area_pago.registrando();
+
             factura = new Factura({
                 cliente     : cliente,
                 //TODO: enviar solo los ids y el pedido
@@ -75,12 +80,42 @@ $.Controller("ventana.Ventas",
                 movimientos : area_pago.movimientos()
             }).save(
                 //Exito:
-                function() {
-                    alert('Venta realizada');
-                    
+                function(factura) {
                     self.options.carrito[0].limpiar();
                     area_pago.limpiar();
-                    //TODO: Agregar a lista de facturas
+
+                    /* Cuando se realiza una venta que actualizar todas las listas
+                     * que se ven afectadas: reduccion de inventario, nueva factura,
+                     * y nuevo usuario o cambio de saldo.
+                     */
+                    LOCAL.Facturas.push(factura);
+
+                    factura.ventas.each(function() {
+                        LOCAL.Productos.get(this.id)[0].cantidad -= this.pedido;
+                    });
+
+                    if(nuevo_cliente) {
+                        //Agregando al cliente nuevo
+                        LOCAL.Clientes.push(factura.cliente);
+                        /* Se asume que el servidor (en caso de haber) ya le
+                         * agrego el saldo y retornó el modelo con el saldo cambiado.
+                         */
+                         
+                    } else if(cliente.cedula !== 0) {
+                        //Modificando el saldo del cliente
+                        var l_cliente = LOCAL.Clientes.get(cliente.cedula)[0],
+                            recarga = factura.movimiento('R'),
+                            saldo   = factura.movimiento('S');
+
+                        if(recarga) {
+                            l_cliente.saldo += recarga.cantidad;
+                        }
+
+                        if(saldo) {
+                            l_cliente.saldo -= saldo.cantidad;
+                        }
+                    }
+
                 },
                 error
             );

@@ -30,13 +30,14 @@ $.Controller("Routing",
             $.when(
                 Perfil.yo(),
                 Producto.findAll(),
-                Cliente.findAll()
+                Cliente.findAll(),
+                Factura.findAll() //Hay que limitar a las facturas de la semana
                 //Los que faltan...
 
             ).then(
                 //Exito:
                 //http://images3.wikia.nocookie.net/es.warhammer40k/images/a/ab/Exito_meme.jpg
-                function(perfil, productos, clientes /* los que faltan */) {
+                function(perfil, productos, clientes, facturas/* los que faltan */) {
                     //Perfil:
                     LOCAL.Perfil = perfil[0];
                     $("#user_profile").area_perfil( LOCAL.Perfil );
@@ -45,6 +46,8 @@ $.Controller("Routing",
                     LOCAL.Productos = productos[0];
                     //Clientes:
                     LOCAL.Clientes = clientes[0];
+                    //Facturas:
+                    LOCAL.Facturas = facturas[0];
                     //Los que faltan...
 
                     $.route.ready(true);

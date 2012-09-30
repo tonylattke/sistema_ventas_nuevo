@@ -3,5 +3,7 @@
  */
 steal(
     './productos.js',
-    './clientes.js'
+    './clientes.js',
+    './facturas.js',
+    './movimientos_ventas.js'
 );

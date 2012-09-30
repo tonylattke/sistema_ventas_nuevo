@@ -85,7 +85,7 @@ $.Controller("ventana.ventas.Pago",
             }
 
             //De lo contrario se retorna el cliente anonimo:
-            cliente = new Cliente({id:0, nombre: 'Anonimo', saldo: 0});
+            cliente = new Cliente({cedula:0, nombre: 'Anonimo', saldo: 0});
         } else {
             cliente = cliente_dom.model();
         }
@@ -175,7 +175,7 @@ $.Controller("ventana.ventas.Pago",
         //Si el campo de efectivo está vacio o no es un numero:
         if(efectivo === NaN) efectivo = this.total;
         
-        if(efectivo > total && cliente.id !== 0) {
+        if(efectivo > total && cliente.cedula !== 0) {
             saldo_dom.html(0);
             recarga_dom.html(efectivo - total);
 

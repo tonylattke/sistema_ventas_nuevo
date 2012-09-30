@@ -11,7 +11,7 @@ $.Model('Factura',
         cliente : 'Cliente.model',
 
         ventas  : 'VentaProducto.models',
-        movimientos: 'Movimiento.models'
+        movimientos: 'MovimientoVenta.models'
     },
 
     serialize : {
@@ -29,6 +29,19 @@ $.Model('Factura',
     create  : 'POST /factura/post/'
 }, /** @Prototype */ {
     
+    /**
+     * Busca un movimiento en la factura.
+     * @param {String} tipo el tipo del movimiento, puede ser:
+     * 'E': Efectivo, 'S': Saldo, 'R': Recarga.
+     **/
+    movimiento : function(tipo) {
+        var movs = this.movimientos.buscar(['tipo'], tipo, 1);
+        if(movs.length === 1) {
+            return movs[0];
+        } else {
+            return null;
+        }
+    }
 });
 
 }

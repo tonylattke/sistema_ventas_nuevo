@@ -31,8 +31,8 @@ function($) {
         Perfil            : null,
         Productos         : null,
         Clientes          : null,
+        Facturas          : null,
         MovimientosCaja   : null,
-        MovimientosVenta  : null,
         ComprasInventario : null
     };
 
