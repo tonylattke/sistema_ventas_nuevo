@@ -50,19 +50,29 @@ $.Controller("ventana.Ventas",
      * El boton de vender
      */
     "#resumen_compra .boton_accion click" : function(el, ev) {
-        var area_pago =  this.element.find("#area_pago").controllers()[0],
-            cliente = area_pago.usuario(),
-            carrito = this.options.carrito[0],
+        var area_pago =  this.element.find('#area_pago').controllers()[0],
+            cliente   = area_pago.cliente(),
+            carrito   = this.options.carrito[0],
             productos = carrito.productos(),
             self = this;
 
-        if(productos.length > 0) {
+        //Si se está registrando pero el usuario es Anonimo no se ha
+        //finalizado correctamente el registro.
+        if(area_pago.registrando() && cliente.id === 0) {
+            alert(
+                'No ha finalizado correctamente el registro del cliente\n'+
+                'Corrija los errores o borre el campo de nombre para vender anonimamente'
+            );
+            return;
+        }
+
+        if(productos.length > 0 || area_pago.recarga() > 0) {
 
             factura = new Factura({
                 cliente     : cliente,
                 //TODO: enviar solo los ids y el pedido
                 ventas      : carrito.productos(),
-                movimientos : carrito.movimientos()
+                movimientos : area_pago.movimientos()
             }).save(
                 //Exito:
                 function() {
@@ -89,7 +99,7 @@ $.Controller("ventana.Ventas",
         var total     = this.options.carrito[0].total(),
             total_dom = this.element.find('#resumen_total'),
             area_pago = this.element.find("#area_pago").controllers()[0];
-        
+
         area_pago.act_total(total);
         total_dom.html(total);
     },

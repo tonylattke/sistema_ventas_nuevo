@@ -50,15 +50,6 @@ $.Controller("ventana.ventas.Carrito",
         return this.element.find('.compras tr').models(VentaProducto);
     },
 
-    movimientos : function() {
-        return [
-            new MovimientoVenta({
-                tipo : 'E', //Effectivo
-                cantidad: this.total()
-            })
-        ];
-    },
-
     total : function() {
         var total = 0;
         this.productos().each(function(i, venta){
