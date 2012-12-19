@@ -53,18 +53,6 @@ $.Controller("ventana.Inventario",
 		this.producto_nuevo_form_campos.agregar_texto_simple_limpio("Proveedor","proveedor",{});
 		this.producto_nuevo_form_campos.agregar_busqueda_archivo_limpio("imagen","ruta_imagen",{});
 							
-		var opciones_precio =  [
-									{
-										"valor": "Z",
-										"texto": "Egreso"
-									},
-									{
-										"valor": "I",
-										"texto": "Ingreso"
-									}
-								];
-		this.producto_nuevo_form_campos.agregar_selector_limpio("tipo","prueba4", opciones_precio, {});
-		this.producto_nuevo_form_campos.agregar_area_texto_limpio("motivo","prueba5",3,27,{});
 		this.producto_nuevo_form_campos.agregar_accion("Agregar");
 
         this.ver_inventario = this.panel.agregar_boton("Ver Inventario", this.proxy('abrir_listado_productos'))[0];
