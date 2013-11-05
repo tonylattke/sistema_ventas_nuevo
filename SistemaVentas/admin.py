@@ -33,8 +33,8 @@ class filtro_de_valores(SimpleListFilter):
 
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('nombre','cedula','carnet', 'tipo', 'fecha_to_num','val_to_num')
-    list_filter = ['fecha','tipo']  #'filtro_de_valores']
+    list_display = ('nombre','cedula','carnet', 'fecha_to_num','val_to_num')
+    list_filter = ['fecha']  #'filtro_de_valores']
     search_fields = ['nombre','cedula','carnet']
     date_hierarchy = 'fecha'
     
