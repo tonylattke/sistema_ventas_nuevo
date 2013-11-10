@@ -64,7 +64,6 @@ class ProductoAdmin(admin.ModelAdmin):
 
 admin.site.register(Producto, ProductoAdmin)
 
-
 admin.site.register(Precio)
 
 admin.site.register(Turno)
@@ -73,16 +72,19 @@ class VentaProductoInline(admin.TabularInline):
     model = VentaProducto
     extra = 0
 
+class VentaComboInline(admin.TabularInline):
+    model = VentaCombo
+    extra = 0
+
 class MovimientoVentasInline(admin.TabularInline):
     model = MovimientoVentas
     extra = 0
-
 
 class FacturaAdmin(admin.ModelAdmin):
     list_display = ('fact_id', 'usuario_nombre', 'fact_fecha')
     list_filter = ['usuario']
     date_hierarchy = 'fecha'
-    inlines = [VentaProductoInline, MovimientoVentasInline]    
+    inlines = [VentaProductoInline, VentaComboInline, MovimientoVentasInline]    
 
     def usuario_nombre(self, fact): return fact.usuario.nombre
     usuario_nombre.short_description = "A nombre de"
@@ -112,3 +114,19 @@ admin.site.register(MovimientoVentas)
 admin.site.register(MovimientoCaja)
 admin.site.register(CompraInventario)
 
+admin.site.register(Combo)
+admin.site.register(ComboProducto)
+
+class VentaComboAdmin(admin.ModelAdmin):
+    list_display = ('combo', 'fecha', 'cantidad', 'usuario')
+    
+    list_filter = ['combo', 'factura__fecha']
+
+    def usuario(self, vprod): return vprod.factura.usuario.nombre
+
+    def fecha(self, vprod): return vprod.factura.fecha.strftime("%x")
+
+admin.site.register(VentaCombo, VentaComboAdmin)
+
+admin.site.register(Deuda)
+admin.site.register(DeudaCombo)

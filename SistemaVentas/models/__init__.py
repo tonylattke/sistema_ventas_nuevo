@@ -7,3 +7,7 @@ from SistemaVentas.models.movimiento import *
 from SistemaVentas.models.turno import Turno
 from SistemaVentas.models.compra_inventario import CompraInventario
 from SistemaVentas.models.deuda import Deuda
+from SistemaVentas.models.combo import Combo
+from SistemaVentas.models.combo_producto import ComboProducto
+from SistemaVentas.models.venta_combo import VentaCombo
+from SistemaVentas.models.deuda_combo import DeudaCombo

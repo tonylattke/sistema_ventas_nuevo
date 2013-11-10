@@ -17,7 +17,8 @@ class VentaProducto(models.Model):
     def __unicode__(self):
         return self.producto.nombre
     
-    def usuario(self): return self.factura.usuario
+    def usuario(self): 
+        return self.factura.usuario
 
     def resumen(self):
         return {

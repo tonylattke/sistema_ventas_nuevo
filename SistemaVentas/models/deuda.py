@@ -13,7 +13,7 @@ class Deuda(models.Model):
     usuario  = models.ForeignKey(Usuario)
     
     def __unicode__(self):
-        return str(self.usuario)+" "+str(self.producto)
+        return str(self.usuario) + " deuda " + str(self.producto)
 
     def resumen(self):
         return {
