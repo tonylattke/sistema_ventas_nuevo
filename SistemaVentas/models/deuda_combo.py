@@ -26,11 +26,8 @@ class DeudaCombo(models.Model):
                                 'cantidad'  : aux.cantidad,
                             }
             salida_productos.append(combo_producto)
-        salida_combo = {
-                        'id'        : self.combo.id,
-                        'nombre'    : self.combo.nombre,
-                        'productos' : salida_productos,
-                    }
+        salida_combo = combo.resumen()
+        salida_combo['productos'] = salida_productos
         return {
                     'combo'    : salida_combo,
                     'cantidad' : self.cantidad,

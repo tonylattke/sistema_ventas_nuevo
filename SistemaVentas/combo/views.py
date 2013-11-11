@@ -40,12 +40,12 @@ def post(request):
     i = 0
     while (request.POST.has_key("p_" + str(i) + "_id" ):
         aux_producto = get_object_or_404(Producto, id=int(request.POST["p_" + str(i) + "_id" ]))
-        aux_combo_producto = ComboProducto( 
+        combo_producto = ComboProducto( 
                 producto    = aux_producto, 
                 combo       = combo, 
                 cantidad    = int(request.POST["p_" + str(i) + "_name"])
             )
-        aux_combo_producto.save()
+        combo_producto.save()
         i += 1
     
     precio = PrecioCombo( combo = combo, fecha = datetime.now(), valor = request.POST["precio"])
@@ -59,10 +59,15 @@ def put(request, id):
     combo = get_object_or_404(Combo, id=id)
     
     if request.POST.has_key('precio'):
-        precio = PrecioCombo( combo = combo, fecha = datetime.now(), valor = request.POST["precio"])
+        precio = PrecioCombo( combo = combo, fecha = datetime.now(), valor = float(request.POST["precio"]))
         precio.save()
     
-    combo.save()
+    if request.POST.has_key('nombre'):
+        aux_nombre = request.POST["nombre"]
+        aux_combo = Combo.objects.filter(nombre=aux_nombre)
+        if (not(aux_combo)):
+            combo.nombre = aux_nombre
+            combo.save()
     
     return HttpResponse(simplejson.dumps( combo.resumen() ), content_type = 'application/javascript; charset=utf8')
 

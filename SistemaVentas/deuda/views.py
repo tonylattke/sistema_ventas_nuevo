@@ -30,7 +30,7 @@ def post(request):
     usuarioAux = get_object_or_404(Usuario, cedula = request.POST["usuario"])
     deuda = Deuda(
                         producto = productoAux, 
-                        cantidad = request.POST["cantidad"],
+                        cantidad = int(request.POST["cantidad"]),
                         usuario  = usuarioAux
                  )
 
@@ -57,8 +57,8 @@ def put(request, id):
         if cantidadRequest > 0:
             if cantidadRequest > deuda.cantidad:
                 if cantidadRequest - deuda.cantidad > producto.cantidad:
-                    deuda.cantidad     = cantidadRequest
                     producto.cantidad -= cantidadRequest - deuda.cantidad
+                    deuda.cantidad     = cantidadRequest
                     producto.save()
             if cantidadRequest < deuda.cantidad:
                 deuda.cantidad     = cantidadRequest

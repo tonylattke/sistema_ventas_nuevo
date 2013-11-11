@@ -50,7 +50,7 @@ def put(request, id):
     producto = get_object_or_404(Producto, id=id)
     
     if request.POST.has_key('precio'):
-        precio = Precio( producto = producto, fecha = datetime.now(), valor = request.POST["precio"])
+        precio = Precio( producto = producto, fecha = datetime.now(), valor = float(request.POST["precio"]))
         precio.save()
     
     if request.POST.has_key('inventario'):
