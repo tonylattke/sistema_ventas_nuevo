@@ -12,8 +12,8 @@ from SistemaVentas.models import Combo, ComboProducto, PrecioCombo, Producto
 @login_required(login_url='')
 def get(request):
     resultados = Combo.objects.all()
-    
     respuesta = []
+    
     for combo in resultados:
         salida_productos = []
         combo_productos  = ComboProducto.objects.filter(combo=combo)
@@ -33,12 +33,12 @@ def get(request):
 @login_required(login_url='')
 def post(request):
     combo = Combo(
-                    nombre   = request.POST["nombre"],
+                    nombre   = request.POST["nombre"]
                 )
     combo.save()
-
+    
     i = 0
-    while (request.POST.has_key("p_" + str(i) + "_id" ):
+    while (request.POST.has_key("p_" + str(i) + "_id" )):
         aux_producto = get_object_or_404(Producto, id=int(request.POST["p_" + str(i) + "_id" ]))
         combo_producto = ComboProducto( 
                 producto    = aux_producto, 

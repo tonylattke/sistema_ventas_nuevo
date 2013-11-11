@@ -9,7 +9,6 @@ from django.shortcuts     import get_object_or_404
 
 from SistemaVentas.models import DeudaCombo, Combo, Usuario, Producto, ComboProducto
 
-
 @login_required(login_url='')
 def get(request):
     resultados = DeudaCombo.objects.all()

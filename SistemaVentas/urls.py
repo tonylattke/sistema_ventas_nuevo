@@ -12,6 +12,9 @@ from SistemaVentas.factura import urls as factura_urls
 from SistemaVentas.ventaProducto import urls as venta_producto_urls
 from SistemaVentas.turno import urls as turno_urls
 from SistemaVentas.compraInventario import urls as compra_inventario_urls
+from SistemaVentas.combo import urls as combo_urls
+from SistemaVentas.deudaCombo import urls as deuda_combo_urls
+from SistemaVentas.ventaCombo import urls as venta_combo_urls
 
 admin.autodiscover()
 
@@ -26,6 +29,9 @@ urlpatterns = patterns('',
     url(r'^ventaProducto/',    include(venta_producto_urls)),
     url(r'^turno/',            include(turno_urls)),
     url(r'^compraInventario/', include(compra_inventario_urls)),
+    url(r'^combo/',            include(combo_urls)),
+    url(r'^ventaCombo/',       include(venta_combo_urls)),
+    url(r'^deudaCombo/',       include(deuda_combo_urls)),
     url(r'^admin/',            include(admin.site.urls)),
 )
 
