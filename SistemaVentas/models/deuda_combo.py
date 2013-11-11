@@ -5,6 +5,8 @@ from datetime import datetime
 
 from SistemaVentas.models.usuario import Usuario
 from SistemaVentas.models.combo import Combo
+from SistemaVentas.models.producto import Producto
+from SistemaVentas.models.combo_producto import ComboProducto
 
 class DeudaCombo(models.Model):
     """Representa la deuda de un usuario"""

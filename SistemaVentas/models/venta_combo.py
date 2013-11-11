@@ -4,6 +4,7 @@ from django.db.models  import *
 from SistemaVentas.models.combo import Combo
 from SistemaVentas.models.precio import Precio
 from SistemaVentas.models.factura import Factura
+from SistemaVentas.models.producto import Producto
 from SistemaVentas.models.combo_producto import ComboProducto
 
 class VentaCombo(models.Model):
@@ -28,11 +29,8 @@ class VentaCombo(models.Model):
                                 'cantidad'  : aux.cantidad,
                             }
             salida_productos.append(combo_producto)
-        salida_combo = {
-                        'id'        : self.combo.id,
-                        'nombre'    : self.combo.nombre,
-                        'productos' : salida_productos,
-                    }
+        salida_combo = combo.resumen()
+        salida_combo['productos'] = salida_productos
         return {
                     'combo'    : salida_combo,
                     'precio'   : self.precio.resumen(),

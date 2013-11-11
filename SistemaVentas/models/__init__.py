@@ -11,3 +11,4 @@ from SistemaVentas.models.combo import Combo
 from SistemaVentas.models.combo_producto import ComboProducto
 from SistemaVentas.models.venta_combo import VentaCombo
 from SistemaVentas.models.deuda_combo import DeudaCombo
+from SistemaVentas.models.precio_combo import PrecioCombo

@@ -4,7 +4,7 @@ from django.db.models  import *
 from datetime import datetime
 
 from SistemaVentas.models.producto import Producto
-from SistemaVentas.models.precio import Precio
+from SistemaVentas.models.precio_combo import PrecioCombo
 from SistemaVentas.models.factura import Factura
 
 class VentaProducto(models.Model):
@@ -12,7 +12,7 @@ class VentaProducto(models.Model):
     producto = models.ForeignKey(Producto)
     factura  = models.ForeignKey(Factura)
     cantidad = models.IntegerField()
-    precio   = models.ForeignKey(Precio)
+    precio   = models.ForeignKey(PrecioCombo)
     
     def __unicode__(self):
         return self.producto.nombre

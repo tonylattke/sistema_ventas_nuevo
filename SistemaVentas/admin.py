@@ -60,9 +60,8 @@ class ProductoAdmin(admin.ModelAdmin):
     def cant_to_num(self, prod):
         return str(prod.cantidad)
     cant_to_num.short_description = 'En Inventario'
-    
 
-admin.site.register(Producto, ProductoAdmin)
+admin.site.register(Producto, ProductoAdmin)    
 
 admin.site.register(Precio)
 
@@ -116,6 +115,7 @@ admin.site.register(CompraInventario)
 
 admin.site.register(Combo)
 admin.site.register(ComboProducto)
+admin.site.register(PrecioCombo)
 
 class VentaComboAdmin(admin.ModelAdmin):
     list_display = ('combo', 'fecha', 'cantidad', 'usuario')
