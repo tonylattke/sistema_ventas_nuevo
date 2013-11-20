@@ -4,8 +4,8 @@ steal(
     CONTROLLERS+'ventas/top',
     CONTROLLERS+'ventas/buscar_productos',
     CONTROLLERS+'ventas/carrito',
-    CONTROLLERS+'ventas/pago'
-
+    CONTROLLERS+'ventas/pago',
+    CONTROLLERS+'ventas/deudas'
 ).then(
     './css/style.css',
     './css/producto.css',
@@ -19,7 +19,8 @@ $.Controller("ventana.Ventas",
     pluginName : "ventana_ventas"
 
 }, /** @Prototype */ {
-    _carrito : null,
+    _carrito        : null,
+    _carrito_deudas : null,
 
     init : function() {
         this.element.html($.View(CONTROLLERS + 'ventas/ventas/views/init.ejs'));

@@ -48,6 +48,17 @@
     border-top: 1px solid  #343434;
 }
 
+#nombre {
+    width : 200px;
+}
+
+#cedula {
+    width : 200px;
+}
+
+#carnet {
+    width : 200px;
+}
 
 /* ------------------------------------------------------------------------------------ */
 /* Area de configuracion de pago */
