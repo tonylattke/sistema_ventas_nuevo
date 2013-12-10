@@ -4,6 +4,7 @@
 steal(
     './productos.js',
     './clientes.js',
+    './combos.js',
     './facturas.js',
     './movimientos_ventas.js'
 );

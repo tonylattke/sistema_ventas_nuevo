@@ -1,5 +1,6 @@
 steal(
-    MODELS+'producto.js'
+    MODELS+'producto.js',
+    MODELS+'combo.js'
 ).then(
     './css/style.css',
     './views/init.ejs',
@@ -53,10 +54,21 @@ $.Controller("ventana.ventas.Top",
 
     //Privado:
     _graficar : function() {
-        //Primeros 10 productos más vendidos:
+        /*
+        var salida = [];
+        if (LOCAL.Combos != null) {
+            salida = LOCAL.Combos.disponibles().slice(0, 10);
+        }
+        if (salida.length < 10){
+            var aux= LOCAL.Productos.disponibles().slice(0, 10 - salida.length);
+            salida = salida.concat(aux);
+        }
+        */
+        var salida = LOCAL.Productos.disponibles().slice(0, 10);
+        //Primeros combos y productos más vendidos:
         this.element.html($.View(
             CONTROLLERS + 'ventas/top/views/init.ejs',
-            LOCAL.Productos.disponibles().slice(0, 10)
+            salida
         ));
     }
 });

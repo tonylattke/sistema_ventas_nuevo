@@ -30,6 +30,7 @@ function($) {
         /** Solo referencial, se inicializan en routing. */
         Perfil            : null,
         Productos         : null,
+        Combos            : null,
         Clientes          : null,
         Facturas          : null,
         MovimientosCaja   : null,

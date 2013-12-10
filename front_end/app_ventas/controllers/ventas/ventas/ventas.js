@@ -148,6 +148,3 @@ $.Controller("ventana.Ventas",
 });
 
 });
-
-
-
